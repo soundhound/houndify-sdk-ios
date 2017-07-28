@@ -1,0 +1,407 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8551EE711F0727A6005BD268 /* UITabBarController+additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8551EE701F0727A6005BD268 /* UITabBarController+additions.swift */; };
+		85CCA4741F05BD4E0035F5D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CCA4731F05BD4E0035F5D5 /* AppDelegate.swift */; };
+		85CCA47B1F05BD4E0035F5D5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85CCA4791F05BD4E0035F5D5 /* Main.storyboard */; };
+		85CCA48D1F05C3A90035F5D5 /* AppImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85CCA48C1F05C3A90035F5D5 /* AppImages.xcassets */; };
+		85CCA48F1F05C4EF0035F5D5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 85CCA48E1F05C4EF0035F5D5 /* LaunchScreen.xib */; };
+		85CCA4A51F05C9640035F5D5 /* RawVoiceSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CCA4A11F05C9640035F5D5 /* RawVoiceSearchViewController.swift */; };
+		85CCA4A61F05C9640035F5D5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CCA4A21F05C9640035F5D5 /* SettingsViewController.swift */; };
+		85CCA4A71F05C9640035F5D5 /* TextSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CCA4A31F05C9640035F5D5 /* TextSearchViewController.swift */; };
+		85CCA4A81F05C9640035F5D5 /* VoiceSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CCA4A41F05C9640035F5D5 /* VoiceSearchViewController.swift */; };
+		85CCA4AA1F05C9ED0035F5D5 /* HoundifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CCA4A91F05C9ED0035F5D5 /* HoundifyViewController.swift */; };
+		85CCA4B01F05DA000035F5D5 /* AudioTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CCA4AD1F05DA000035F5D5 /* AudioTester.swift */; };
+		85CCA4B11F05DA000035F5D5 /* JSONAttributedFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CCA4AF1F05DA000035F5D5 /* JSONAttributedFormatter.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		85CCA4931F05C58C0035F5D5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		8551EE701F0727A6005BD268 /* UITabBarController+additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITabBarController+additions.swift"; sourceTree = "<group>"; };
+		85CCA4701F05BD4E0035F5D5 /* HoundifySDK Sample App (Swift).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HoundifySDK Sample App (Swift).app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		85CCA4731F05BD4E0035F5D5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		85CCA47A1F05BD4E0035F5D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		85CCA4811F05BD4E0035F5D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		85CCA48C1F05C3A90035F5D5 /* AppImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppImages.xcassets; sourceTree = "<group>"; };
+		85CCA48E1F05C4EF0035F5D5 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		85CCA4961F05C6CB0035F5D5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		85CCA4981F05C6D40035F5D5 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		85CCA49A1F05C6E40035F5D5 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		85CCA49C1F05C6F70035F5D5 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		85CCA49E1F05C70F0035F5D5 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		85CCA4A11F05C9640035F5D5 /* RawVoiceSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawVoiceSearchViewController.swift; sourceTree = "<group>"; };
+		85CCA4A21F05C9640035F5D5 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		85CCA4A31F05C9640035F5D5 /* TextSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSearchViewController.swift; sourceTree = "<group>"; };
+		85CCA4A41F05C9640035F5D5 /* VoiceSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoiceSearchViewController.swift; sourceTree = "<group>"; };
+		85CCA4A91F05C9ED0035F5D5 /* HoundifyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoundifyViewController.swift; sourceTree = "<group>"; };
+		85CCA4AC1F05DA000035F5D5 /* HoundifySDK Sample App (Swift)-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HoundifySDK Sample App (Swift)-Bridging-Header.h"; sourceTree = "<group>"; };
+		85CCA4AD1F05DA000035F5D5 /* AudioTester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioTester.swift; sourceTree = "<group>"; };
+		85CCA4AE1F05DA000035F5D5 /* JSONAttributedFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONAttributedFormatter.h; sourceTree = "<group>"; };
+		85CCA4AF1F05DA000035F5D5 /* JSONAttributedFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONAttributedFormatter.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		85CCA46D1F05BD4E0035F5D5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		85CCA4671F05BD4E0035F5D5 = {
+			isa = PBXGroup;
+			children = (
+				85CCA4721F05BD4E0035F5D5 /* HoundifySDK Sample App (Swift) */,
+				85CCA4711F05BD4E0035F5D5 /* Products */,
+				85CCA4951F05C6CA0035F5D5 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		85CCA4711F05BD4E0035F5D5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				85CCA4701F05BD4E0035F5D5 /* HoundifySDK Sample App (Swift).app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		85CCA4721F05BD4E0035F5D5 /* HoundifySDK Sample App (Swift) */ = {
+			isa = PBXGroup;
+			children = (
+				85CCA4731F05BD4E0035F5D5 /* AppDelegate.swift */,
+				85CCA4791F05BD4E0035F5D5 /* Main.storyboard */,
+				85CCA4811F05BD4E0035F5D5 /* Info.plist */,
+				85CCA4AB1F05D9E60035F5D5 /* Utility */,
+				85CCA4A01F05C8BC0035F5D5 /* ViewControllers */,
+				85CCA4871F05BE4E0035F5D5 /* Resources */,
+			);
+			path = "HoundifySDK Sample App (Swift)";
+			sourceTree = "<group>";
+		};
+		85CCA4871F05BE4E0035F5D5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				85CCA48E1F05C4EF0035F5D5 /* LaunchScreen.xib */,
+				85CCA48C1F05C3A90035F5D5 /* AppImages.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		85CCA4951F05C6CA0035F5D5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				85CCA49E1F05C70F0035F5D5 /* libc++.tbd */,
+				85CCA49C1F05C6F70035F5D5 /* libz.tbd */,
+				85CCA49A1F05C6E40035F5D5 /* Accelerate.framework */,
+				85CCA4981F05C6D40035F5D5 /* AudioToolbox.framework */,
+				85CCA4961F05C6CB0035F5D5 /* AVFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		85CCA4A01F05C8BC0035F5D5 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				85CCA4A11F05C9640035F5D5 /* RawVoiceSearchViewController.swift */,
+				85CCA4A21F05C9640035F5D5 /* SettingsViewController.swift */,
+				85CCA4A31F05C9640035F5D5 /* TextSearchViewController.swift */,
+				85CCA4A41F05C9640035F5D5 /* VoiceSearchViewController.swift */,
+				85CCA4A91F05C9ED0035F5D5 /* HoundifyViewController.swift */,
+				8551EE701F0727A6005BD268 /* UITabBarController+additions.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		85CCA4AB1F05D9E60035F5D5 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				85CCA4AD1F05DA000035F5D5 /* AudioTester.swift */,
+				85CCA4AE1F05DA000035F5D5 /* JSONAttributedFormatter.h */,
+				85CCA4AF1F05DA000035F5D5 /* JSONAttributedFormatter.m */,
+				85CCA4AC1F05DA000035F5D5 /* HoundifySDK Sample App (Swift)-Bridging-Header.h */,
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		85CCA46F1F05BD4E0035F5D5 /* HoundifySDK Sample App (Swift) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 85CCA4841F05BD4E0035F5D5 /* Build configuration list for PBXNativeTarget "HoundifySDK Sample App (Swift)" */;
+			buildPhases = (
+				85CCA46C1F05BD4E0035F5D5 /* Sources */,
+				85CCA46D1F05BD4E0035F5D5 /* Frameworks */,
+				85CCA46E1F05BD4E0035F5D5 /* Resources */,
+				85CCA4931F05C58C0035F5D5 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "HoundifySDK Sample App (Swift)";
+			productName = "HoundifySDK Sample App (Swift)";
+			productReference = 85CCA4701F05BD4E0035F5D5 /* HoundifySDK Sample App (Swift).app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		85CCA4681F05BD4E0035F5D5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = SoundHound;
+				TargetAttributes = {
+					85CCA46F1F05BD4E0035F5D5 = {
+						CreatedOnToolsVersion = 8.3.3;
+						LastSwiftMigration = 0830;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 85CCA46B1F05BD4E0035F5D5 /* Build configuration list for PBXProject "HoundifySDK Sample App (Swift)" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 85CCA4671F05BD4E0035F5D5;
+			productRefGroup = 85CCA4711F05BD4E0035F5D5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				85CCA46F1F05BD4E0035F5D5 /* HoundifySDK Sample App (Swift) */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		85CCA46E1F05BD4E0035F5D5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85CCA48F1F05C4EF0035F5D5 /* LaunchScreen.xib in Resources */,
+				85CCA48D1F05C3A90035F5D5 /* AppImages.xcassets in Resources */,
+				85CCA47B1F05BD4E0035F5D5 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		85CCA46C1F05BD4E0035F5D5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				85CCA4741F05BD4E0035F5D5 /* AppDelegate.swift in Sources */,
+				85CCA4A51F05C9640035F5D5 /* RawVoiceSearchViewController.swift in Sources */,
+				85CCA4B11F05DA000035F5D5 /* JSONAttributedFormatter.m in Sources */,
+				8551EE711F0727A6005BD268 /* UITabBarController+additions.swift in Sources */,
+				85CCA4B01F05DA000035F5D5 /* AudioTester.swift in Sources */,
+				85CCA4A71F05C9640035F5D5 /* TextSearchViewController.swift in Sources */,
+				85CCA4AA1F05C9ED0035F5D5 /* HoundifyViewController.swift in Sources */,
+				85CCA4A61F05C9640035F5D5 /* SettingsViewController.swift in Sources */,
+				85CCA4A81F05C9640035F5D5 /* VoiceSearchViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		85CCA4791F05BD4E0035F5D5 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				85CCA47A1F05BD4E0035F5D5 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		85CCA4821F05BD4E0035F5D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		85CCA4831F05BD4E0035F5D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		85CCA4851F05BD4E0035F5D5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "HoundifySDK Sample App (Swift)/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.soundhound.HoundifySDK-Sample-App--Swift-";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HoundifySDK Sample App (Swift)/HoundifySDK Sample App (Swift)-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		85CCA4861F05BD4E0035F5D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "HoundifySDK Sample App (Swift)/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.soundhound.HoundifySDK-Sample-App--Swift-";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HoundifySDK Sample App (Swift)/HoundifySDK Sample App (Swift)-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		85CCA46B1F05BD4E0035F5D5 /* Build configuration list for PBXProject "HoundifySDK Sample App (Swift)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				85CCA4821F05BD4E0035F5D5 /* Debug */,
+				85CCA4831F05BD4E0035F5D5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		85CCA4841F05BD4E0035F5D5 /* Build configuration list for PBXNativeTarget "HoundifySDK Sample App (Swift)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				85CCA4851F05BD4E0035F5D5 /* Debug */,
+				85CCA4861F05BD4E0035F5D5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 85CCA4681F05BD4E0035F5D5 /* Project object */;
+}
