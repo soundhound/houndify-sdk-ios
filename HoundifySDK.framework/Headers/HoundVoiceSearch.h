@@ -117,7 +117,7 @@ If your application already has audio management code that interacts with AVAudi
 - (void)startListeningWithCompletionHandler:(HoundVoiceSearchErrorCallback __nullable)handler;
 
 /**
- This method stops the SDK from processing microphone input. The state transitions to HoundVoiceSearchStateNone.
+ This method stops the SDK from processing microphone input. The state transitions to HoundVoiceSearchStateNone. This call is not used for raw searches.
  
  Searches cannot be started when the SDK is not listening.
 
