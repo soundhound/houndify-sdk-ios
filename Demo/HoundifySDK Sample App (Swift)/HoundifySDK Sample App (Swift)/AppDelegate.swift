@@ -18,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         /* ATTENTION: Obtain a Client ID and Key from https://www.houndify.com/ Insert them below. Then delete this line. */ throw NSError()
         
-        Hound.setClientID(<CLIENT-ID>)
-        Hound.setClientKey(<CLIENT-KEY>)
+        Hound.setClientID(<#T##clientID: String##String#>)
+        Hound.setClientKey(<#T##clientKey: String##String#>)
         
         return true
     }

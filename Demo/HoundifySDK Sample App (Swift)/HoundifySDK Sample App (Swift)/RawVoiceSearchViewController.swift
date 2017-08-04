@@ -192,6 +192,8 @@ class RawVoiceSearchViewController: UIViewController, UISearchBarDelegate {
     }
     
     func hotPhrase() {
+        blankTextView()
+        
         // When the hot phrase is detected, it is the responsibility of the application to
         // begin a voice search in the style of its choosing.
         self.startSearch()
@@ -208,7 +210,7 @@ class RawVoiceSearchViewController: UIViewController, UISearchBarDelegate {
         // Take action based on current voice search state.
         switch HoundVoiceSearch.instance().state {
         case .none, .ready:
-            resetTextView()
+            blankTextView()
             self.startSearch()
             
         case .recording:
@@ -248,6 +250,11 @@ class RawVoiceSearchViewController: UIViewController, UISearchBarDelegate {
         didSet {
             refreshTextView()
         }
+    }
+    
+    private func blankTextView() {
+        updateText = ""
+        responseText = nil
     }
     
     private func resetTextView() {
