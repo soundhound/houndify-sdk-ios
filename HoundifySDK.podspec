@@ -18,8 +18,8 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, "8.0"
 
-  s.source = {:git => "https://github.com/soundhound/houndify-sdk-ios.git", :branch => 'master' }
+  s.source = {:git => "https://github.com/soundhound/houndify-sdk-ios.git", :tag => '1.2.1' }
   s.vendored_frameworks = 'HoundifySDK.framework'
   s.requires_arc = true
-  
+
 end
