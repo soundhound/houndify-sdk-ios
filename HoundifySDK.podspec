@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => "Custom", :file => "LICENSE" }
   s.author             = "SoundHound Inc."
 
-  s.platform     = :ios, "8.0"
+  s.platform     = :ios, "9.3"
 
   s.source = {:git => "https://github.com/soundhound/houndify-sdk-ios.git", :tag => 'v1.2.1' }
   s.vendored_frameworks = 'HoundifySDK.framework'
