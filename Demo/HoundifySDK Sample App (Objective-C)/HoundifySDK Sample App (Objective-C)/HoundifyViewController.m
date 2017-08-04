@@ -64,9 +64,12 @@
     [[HoundVoiceSearch instance] startListeningWithCompletionHandler:^(NSError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            if (error) {
+            if (error)
+            {
                 self.updateText = error.localizedDescription;
-            } else {
+            }
+            else
+            {
                 self.listenButton.enabled = NO;
                 [HoundVoiceSearch instance].enableHotPhraseDetection = YES;
                 [self refreshTextView];
@@ -79,9 +82,12 @@
 {
     [self.tabBarController disableAllVoiceSearchControllersExcept:self];
     
-    if ([HoundVoiceSearch instance].state == HoundVoiceSearchStateNone) {
+    if ([HoundVoiceSearch instance].state == HoundVoiceSearchStateNone)
+    {
         [self startListeningForHotPhrase];
-    } else {
+    }
+    else
+    {
         [HoundVoiceSearch instance].enableHotPhraseDetection = YES;
         self.listenButton.enabled = NO;
         [self refreshTextView];
@@ -139,7 +145,8 @@
     {
         case HoundVoiceSearchStateNone:
             // Don't update UI when audio is disabled for backgrounding.
-            if (UIApplication.sharedApplication.applicationState == UIApplicationStateActive) {
+            if (UIApplication.sharedApplication.applicationState == UIApplicationStateActive)
+            {
                 statusString = @"";
                 self.listenButton.enabled = YES;
                 [self refreshTextView];
@@ -199,7 +206,8 @@
 
 - (void)setUpdateText:(NSString *)updateText
 {
-    if (![_updateText isEqual:updateText]) {
+    if (![_updateText isEqual:updateText])
+    {
         _updateText = [updateText copy];
         
         [self refreshTextView];
@@ -208,7 +216,8 @@
 
 - (void)setResponseText:(NSAttributedString *)responseText
 {
-    if (![_responseText isEqual:responseText]) {
+    if (![_responseText isEqual:responseText])
+    {
         _responseText = [responseText copy];
         
         [self refreshTextView];
@@ -223,11 +232,16 @@
 
 - (void)refreshTextView
 {
-    if (self.responseText.length > 0) {
+    if (self.responseText.length > 0)
+    {
         self.responseTextView.attributedText = self.responseText;
-    } else if (self.updateText.length > 0) {
+    }
+    else if (self.updateText.length > 0)
+    {
         self.responseTextView.text = self.updateText;
-    } else {
+    }
+    else
+    {
         self.responseTextView.text = self.explanatoryText;
     }
 }

@@ -93,23 +93,31 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
 
 - (void)trySetupAudio
 {
-    if (self.setupState != RawVoiceSearchViewControllerSetupStateNotSetUp) {
+    if (self.setupState != RawVoiceSearchViewControllerSetupStateNotSetUp)
+    {
         return;
     }
     
     self.setupState = RawVoiceSearchViewControllerSetupStateSettingUpAudio;
     
     [[AudioTester instance] startAudioWithSampleRate:SAMPLE_RATE dataHandler:^(NSError *error, NSData *data) {
-        if (error) {
+        if (error)
+        {
             NSString *errorString = [NSString stringWithFormat:@"Audio Setup Error: %@", error.localizedDescription];
             self.updateText = errorString;
             NSLog(@"%@", errorString);
-            if (self.setupState != RawVoiceSearchViewControllerSetupStateSetUp) {
+            
+            if (self.setupState != RawVoiceSearchViewControllerSetupStateSetUp)
+            {
                 self.setupState = RawVoiceSearchViewControllerSetupStateNotSetUp;
             }
-        } else if (self.setupState == RawVoiceSearchViewControllerSetupStateSettingUpAudio) {
+        }
+        else if (self.setupState == RawVoiceSearchViewControllerSetupStateSettingUpAudio)
+        {
             [self setupHoundifySDK];
-        } else if (self.setupState == RawVoiceSearchViewControllerSetupStateSetUp) {
+        }
+        else if (self.setupState == RawVoiceSearchViewControllerSetupStateSetUp)
+        {
             // startAudioWithSampleRate's handler is used to return audio data.
             // Pass this data to HoundVoiceSearch
             [self passAudioData:data];
@@ -141,8 +149,8 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
      }];
 }
 
-- (void)passAudioData:(NSData *)data {
-    
+- (void)passAudioData:(NSData *)data
+{
     // When using HoundVoiceSearch in raw mode, the application is responsible for continuously passing audio data
     // to the SDK
     
@@ -193,7 +201,8 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
         case HoundVoiceSearchStateNone:
             
             // Don't update UI when audio is disabled for backgrounding.
-            if (UIApplication.sharedApplication.applicationState == UIApplicationStateActive) {
+            if (UIApplication.sharedApplication.applicationState == UIApplicationStateActive)
+            {
                 self.statusLabel.text = @"Not Ready";
                 self.searchButton.enabled = NO;
                 [self.searchButton setTitle:@"Search" forState:UIControlStateNormal];
@@ -247,6 +256,8 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
 
 - (void)hotPhrase
 {
+    [self blankTextView];
+    
     // When the hot phrase is detected, it is the responsibility of the application to
     // begin a voice search in the style of its choosing.
     [self startSearch];
@@ -272,24 +283,24 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
         case HoundVoiceSearchStateNone:
         case HoundVoiceSearchStateReady:
             
-            [self resetTextView];
+            [self blankTextView];
             [self startSearch];
             break;
-        
+            
         case HoundVoiceSearchStateRecording:
-        
+            
             [HoundVoiceSearch.instance stopSearch];
             [self resetTextView];
             break;
-        
+            
         case HoundVoiceSearchStateSearching:
-        
+            
             [HoundVoiceSearch.instance cancelSearch];
             [self resetTextView];
             break;
-        
+            
         case HoundVoiceSearchStateSpeaking:
-        
+            
             [HoundVoiceSearch.instance stopSpeaking];
             break;
     }
@@ -301,11 +312,16 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
 {
     NSMutableString *text = [@"HoundVoiceSearch.h offers voice search APIs with greater control." mutableCopy];
     
-    if (self.setupState != RawVoiceSearchViewControllerSetupStateSetUp) {
+    if (self.setupState != RawVoiceSearchViewControllerSetupStateSetUp)
+    {
         [text appendString:@"\n\nIf your app will be responsible for audio and will pass raw audio data to Houndify, you must first call -setupRawModeWithInputSampleRate:completionHandler:\n\nTap \"Set Up\""];
-    } else if ([HoundVoiceSearch instance].state == HoundVoiceSearchStateReady) {
+    }
+    else if ([HoundVoiceSearch instance].state == HoundVoiceSearchStateReady)
+    {
         [text appendString:@"\n\nTap \"Search\" to begin a search with -startSearchWithRequestInfo:..."];
-    } else {
+    }
+    else
+    {
         return nil;
     }
     
@@ -314,7 +330,8 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
 
 - (void)setUpdateText:(NSString *)updateText
 {
-    if (![_updateText isEqual:updateText]) {
+    if (![_updateText isEqual:updateText])
+    {
         _updateText = [updateText copy];
         
         [self refreshTextView];
@@ -323,11 +340,18 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
 
 - (void)setResponseText:(NSAttributedString *)responseText
 {
-    if (![_responseText isEqual:responseText]) {
+    if (![_responseText isEqual:responseText])
+    {
         _responseText = [responseText copy];
         
         [self refreshTextView];
     }
+}
+
+- (void)blankTextView
+{
+    self.updateText = @"";
+    self.responseText = nil;
 }
 
 - (void)resetTextView
@@ -338,11 +362,16 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
 
 - (void)refreshTextView
 {
-    if (self.responseText.length > 0) {
+    if (self.responseText.length > 0)
+    {
         self.textView.attributedText = self.responseText;
-    } else if (self.updateText.length > 0) {
+    }
+    else if (self.updateText.length > 0)
+    {
         self.textView.text = self.updateText;
-    } else {
+    }
+    else
+    {
         self.textView.text = self.explanatoryText;
     }
 }
