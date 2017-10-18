@@ -15,16 +15,10 @@
 
 - (void)disableAllVoiceSearchControllersExcept:(UIViewController *)exceptController
 {
-    NSArray *voiceSearchClasses = @[
-                                    [HoundifyViewController class],
-                                    [VoiceSearchViewController class],
-                                    [RawVoiceSearchViewController class]
-                                    ];
+    NSArray *voiceSearchClasses = @[[HoundifyViewController class], [VoiceSearchViewController class], [RawVoiceSearchViewController class]];
 
-    for (UIViewController *viewController in self.viewControllers)
-    {
-        if (viewController != exceptController && [voiceSearchClasses containsObject:[viewController class]])
-        {
+    for (UIViewController *viewController in self.viewControllers) {
+        if (viewController != exceptController && [voiceSearchClasses containsObject:[viewController class]]) {
             viewController.tabBarItem.enabled = NO;
         }
     }

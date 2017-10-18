@@ -65,8 +65,7 @@
     
     NSString* query = searchBar.text;
     
-    if (query.length > 0)
-    {
+    if (query.length > 0) {
         [self textSearchFor:query];
     }
 }

@@ -46,11 +46,11 @@
     CGRect tabBarFrame = [self.view convertRect:self.tabBarController.tabBar.bounds fromView:self.tabBarController.tabBar];
     
     self.levelView.frame = CGRectMake(
-                                      0,
-                                      CGRectGetMinY(tabBarFrame) - levelHeight,
-                                      0,
-                                      levelHeight
-                                      );
+        0,
+        CGRectGetMinY(tabBarFrame) - levelHeight,
+        0,
+        levelHeight
+    );
     
     [self.view addSubview:self.levelView];
     [self refreshTextView];
@@ -102,28 +102,24 @@
     // as well as initiating listening for the hot phrase, if you are using it.
     
     [[HoundVoiceSearch instance] startListeningWithCompletionHandler:^(NSError * _Nullable error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self updateListeningButton];
-            
-            if (error) {
-                self.updateText = error.localizedDescription;
-            }
-        });
+        [self updateListeningButton];
+        
+        if (error) {
+            self.updateText = error.localizedDescription;
+        }
     }];
 }
 
 - (void)stopListening
 {
     // If you need to deactivate the HoundSDK AVAudioSession, call stopListening(completionHandler:)
-    
+
     [[HoundVoiceSearch instance] stopListeningWithCompletionHandler:^(NSError * _Nullable error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self updateListeningButton];
-            
-            if (error) {
-                self.updateText = error.localizedDescription;
-            }
-        });
+        [self updateListeningButton];
+        
+        if (error) {
+            self.updateText = error.localizedDescription;
+        }
     }];
 }
 
@@ -136,45 +132,42 @@
     [[HoundVoiceSearch instance] startSearchWithRequestInfo:nil responseHandler:
      
      ^(NSError* error, HoundVoiceSearchResponseType responseType, id response, NSDictionary* dictionary, NSDictionary* requestInfo) {
-        
-         dispatch_async(dispatch_get_main_queue(), ^{
+    
+         if (error)
+         {
+             // Handle error
              
-             if (error)
-             {
-                 // Handle error
-                 
-                 self.updateText = [NSString stringWithFormat:@"%@ (%d)\n%@",
-                                    error.domain,
-                                    (int)error.code,
-                                    error.localizedDescription
-                                    ];
-                 return;
-             }
+             self.updateText = [NSString stringWithFormat:@"%@ (%d)\n%@",
+                                error.domain,
+                                (int)error.code,
+                                error.localizedDescription
+                                ];
+             return;
+         }
+         
+         if (responseType == HoundVoiceSearchResponseTypePartialTranscription) {
+             // While a voice query is being recorded, the HoundSDK will provide ongoing transcription
+             // updates which can be displayed to the user.
              
-             if (responseType == HoundVoiceSearchResponseTypePartialTranscription) {
-                 // While a voice query is being recorded, the HoundSDK will provide ongoing transcription
-                 // updates which can be displayed to the user.
-                 
-                 HoundDataPartialTranscript* partialTranscript = (HoundDataPartialTranscript*)response;
-                 
-                 self.updateText = partialTranscript.partialTranscript;
-             } else if (responseType == HoundVoiceSearchResponseTypeHoundServer) {
-                 
-                 self.responseText = [JSONAttributedFormatter
-                                      attributedStringFromObject:dictionary
-                                      style:nil];
-                 
-                 // Any properties from the documentation can be accessed through the keyed accessors, e.g.:
-                 
-                 HoundDataHoundServer* houndServer = response;
-                 
-                 HoundDataCommandResult* commandResult = houndServer.allResults.firstObject;
-                 
-                 NSDictionary* nativeData = commandResult[@"NativeData"];
-                 
-                 NSLog(@"NativeData: %@", nativeData);
-             }
-         });
+             HoundDataPartialTranscript* partialTranscript = (HoundDataPartialTranscript*)response;
+             
+             self.updateText = partialTranscript.partialTranscript;
+         } else if (responseType == HoundVoiceSearchResponseTypeHoundServer) {
+             
+             self.responseText = [JSONAttributedFormatter
+                                  attributedStringFromObject:dictionary
+                                  style:nil];
+             
+             // Any properties from the documentation can be accessed through the keyed accessors, e.g.:
+             
+             HoundDataHoundServer* houndServer = response;
+             
+             HoundDataCommandResult* commandResult = houndServer.allResults.firstObject;
+             
+             NSDictionary* nativeData = commandResult[@"NativeData"];
+             
+             NSLog(@"NativeData: %@", nativeData);
+         }
      }];
 }
 
@@ -185,10 +178,9 @@
     switch (HoundVoiceSearch.instance.state)
     {
         case HoundVoiceSearchStateNone:
-            
+        
             // Don't update UI when audio is disabled for backgrounding.
-            if (UIApplication.sharedApplication.applicationState == UIApplicationStateActive)
-            {
+            if (UIApplication.sharedApplication.applicationState == UIApplicationStateActive) {
                 [self updateListeningButton];
                 
                 self.statusLabel.text = @"Not Ready";
@@ -202,9 +194,9 @@
                 [self resetTextView];
             }
             break;
-            
+        
         case HoundVoiceSearchStateReady:
-            
+        
             self.statusLabel.text = @"Ready";
             
             self.searchButton.enabled = YES;
@@ -214,11 +206,11 @@
             self.searchButton.backgroundColor = self.view.tintColor;
             
             [self refreshTextView];
-            
+        
             break;
-            
+        
         case HoundVoiceSearchStateRecording:
-            
+        
             self.statusLabel.text = @"Recording";
             
             self.searchButton.enabled = YES;
@@ -228,11 +220,11 @@
             self.searchButton.backgroundColor = self.view.tintColor;
             
             [self refreshTextView];
-            
+        
             break;
-            
+        
         case HoundVoiceSearchStateSearching:
-            
+        
             self.statusLabel.text = @"Searching";
             
             self.searchButton.enabled = YES;
@@ -242,11 +234,11 @@
             self.searchButton.backgroundColor = self.view.tintColor;
             
             break;
-            
+        
         case HoundVoiceSearchStateSpeaking:
-            
+        
             self.statusLabel.text = @"Speaking";
-            
+
             self.searchButton.enabled = YES;
             
             [self.searchButton setTitle:@"Stop" forState:UIControlStateNormal];
@@ -274,7 +266,7 @@
                                           audioLevel * self.view.frame.size.width,
                                           self.levelView.frame.size.height
                                           );
-    } completion:nil];
+    } completion:NULL];
 }
 
 - (void)hotPhrase
@@ -295,12 +287,9 @@
     
     [self.tabBarController disableAllVoiceSearchControllersExcept:self];
     
-    if ([HoundVoiceSearch instance].state == HoundVoiceSearchStateNone)
-    {
+    if ([HoundVoiceSearch instance].state == HoundVoiceSearchStateNone) {
         [self startListening];
-    }
-    else
-    {
+    } else {
         [self stopListening];
     }
 }
@@ -314,33 +303,33 @@
         case HoundVoiceSearchStateNone:
             
             break;
-            
+        
         case HoundVoiceSearchStateReady:
             
             [self blankTextView];
             
             [self startSearch];
-            
+
             break;
-            
+        
         case HoundVoiceSearchStateRecording:
-            
+        
             [[HoundVoiceSearch instance] stopSearch];
             
             [self resetTextView];
-            
+
             break;
-            
+        
         case HoundVoiceSearchStateSearching:
-            
+        
             [[HoundVoiceSearch instance] cancelSearch];
             
             [self resetTextView];
             
             break;
-            
+        
         case HoundVoiceSearchStateSpeaking:
-            
+        
             [[HoundVoiceSearch instance] stopSpeaking];
             
             break;
@@ -359,8 +348,7 @@
 {
     NSMutableString *text = [@"HoundVoiceSearch.h offers voice search APIs with greater control." mutableCopy];
     
-    switch ([HoundVoiceSearch instance].state)
-    {
+    switch ([HoundVoiceSearch instance].state) {
         case HoundVoiceSearchStateNone:
             [text appendString:@"\n\nIf you would like Houndify to manage audio, you must activate the audio session with -startListeningWithCompletionHandler:\n\nTap \"Listen\""];
             break;
@@ -377,8 +365,7 @@
 
 - (void)setUpdateText:(NSString *)updateText
 {
-    if (![_updateText isEqual:updateText])
-    {
+    if (![_updateText isEqual:updateText]) {
         _updateText = [updateText copy];
         
         [self refreshTextView];
@@ -387,8 +374,7 @@
 
 - (void)setResponseText:(NSAttributedString *)responseText
 {
-    if (![_responseText isEqual:responseText])
-    {
+    if (![_responseText isEqual:responseText]) {
         _responseText = [responseText copy];
         
         [self refreshTextView];
@@ -409,16 +395,11 @@
 
 - (void)refreshTextView
 {
-    if (self.responseText.length > 0)
-    {
+    if (self.responseText.length > 0) {
         self.textView.attributedText = self.responseText;
-    }
-    else if (self.updateText.length > 0)
-    {
+    } else if (self.updateText.length > 0) {
         self.textView.text = self.updateText;
-    }
-    else
-    {
+    } else {
         self.textView.text = self.explanatoryText;
     }
 }
