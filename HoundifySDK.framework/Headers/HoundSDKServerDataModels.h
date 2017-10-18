@@ -28,6 +28,8 @@
 @class HoundDataHoundServerDomainUsageArray;
 @class HoundDataHTMLData;
 @class HoundDataHTMLDataHTMLHead;
+@class HoundDataInformationNugget;
+@class HoundDataInformationNuggetArray;
 @class HoundDataPreview;
 @class HoundDataTemplate;
 
@@ -169,18 +171,25 @@ typedef NS_ENUM(NSUInteger, HoundDataIcon) {
 @property(nonatomic, copy, nullable) NSString* spokenResponseLong;
 @property(nonatomic, copy, nullable) NSString* writtenResponse;
 @property(nonatomic, copy, nullable) NSString* writtenResponseLong;
+@property(nonatomic, copy, nullable) NSString* spokenResponseSSML;
+@property(nonatomic, copy, nullable) NSString* spokenResponseSSMLLong;
 @property(nonatomic, assign) BOOL autoListen;
 @property(nonatomic, copy, nullable) NSString* userVisibleMode;
 @property(nonatomic, assign) BOOL isRepeat;
+@property(nonatomic, strong, nullable) HoundDataInformationNuggetArray* additionalInformation;
 @property(nonatomic, strong, nullable) NSDictionary* conversationState;
 @property(nonatomic, strong, nullable) HoundDataNumberArray* viewType;
 @property(nonatomic, copy, nullable) NSString* templateName;
 @property(nonatomic, strong, nullable) HoundDataTemplate* templateData;
+@property(nonatomic, strong, nullable) HoundDataTemplate* combiningTemplateData;
 @property(nonatomic, strong, nullable) HoundDataPreview* preview;
 @property(nonatomic, strong, nullable) HoundDataHTMLData* HTMLData;
 @property(nonatomic, strong, nullable) HoundDataHints* hints;
 @property(nonatomic, assign) HoundDataEmotion emotion;
 @property(nonatomic, assign) HoundDataIcon icon;
+@property(nonatomic, copy, nullable) NSString* responseAudioBytes;
+@property(nonatomic, copy, nullable) NSString* responseAudioEncoding;
+@property(nonatomic, copy, nullable) NSString* responseAudioError;
 @property(nonatomic, strong, nullable) HoundDataStringArray* requiredFeatures;
 @property(nonatomic, strong, nullable) HoundDataDynamicResponse* clientActionSucceededResult;
 @property(nonatomic, strong, nullable) HoundDataDynamicResponse* clientActionFailedResult;
@@ -338,6 +347,31 @@ typedef NS_ENUM(NSUInteger, HoundDataIcon) {
 
 @end
 
+#pragma mark - HoundDataInformationNugget
+
+/**
+	A chunk of information in response to a user query
+*/
+@interface HoundDataInformationNugget : HoundData
+
+@property(nonatomic, copy, nullable) NSString* spokenResponse;
+@property(nonatomic, copy, nullable) NSString* spokenResponseLong;
+@property(nonatomic, copy, nullable) NSString* writtenResponse;
+@property(nonatomic, copy, nullable) NSString* writtenResponseLong;
+@property(nonatomic, copy, nullable) NSString* spokenResponseSSML;
+@property(nonatomic, copy, nullable) NSString* spokenResponseSSMLLong;
+@property(nonatomic, strong, nullable) HoundDataTemplate* templateData;
+@property(nonatomic, strong, nullable) HoundDataTemplate* combiningTemplateData;
+@property(nonatomic, strong, nullable) HoundDataPreview* preview;
+@property(nonatomic, copy, nullable) NSString* smallScreenHTML;
+@property(nonatomic, copy, nullable) NSString* largeScreenHTML;
+@property(nonatomic, strong, nullable) HoundDataHints* hints;
+@property(nonatomic, assign) HoundDataEmotion emotion;
+@property(nonatomic, assign) HoundDataIcon icon;
+@property(nonatomic, copy, nullable) NSString* nuggetKind;
+
+@end
+
 #pragma mark - HoundDataPreview
 
 /**
@@ -383,6 +417,13 @@ typedef NS_ENUM(NSUInteger, HoundDataIcon) {
 #pragma mark - HoundDataHoundServerDomainUsageArray
 
 @interface HoundDataHoundServerDomainUsageArray : HoundDataArray
+
+
+@end
+
+#pragma mark - HoundDataInformationNuggetArray
+
+@interface HoundDataInformationNuggetArray : HoundDataArray
 
 
 @end

@@ -34,16 +34,20 @@ typedef NS_ENUM(NSUInteger, HoundVoiceSearchErrorCode)
     HoundVoiceSearchErrorCodeCancelled,             // 1
     HoundVoiceSearchErrorCodeNotReady,              // 2
     HoundVoiceSearchErrorCodeServerStatusError,     // 3
-    HoundVoiceSearchErrorCodeNoResponseReceived,    // 4
-    HoundVoiceSearchErrorCodeInvalidResponse,       // 5
-    HoundVoiceSearchErrorCodeAudioInterrupted,      // 6
-    HoundVoiceSearchErrorCodeParseFailed,           // 7
-    HoundVoiceSearchErrorCodeAuthenticationFailed,  // 8
-    HoundVoiceSearchErrorCodeInternalError,         // 9
-    HoundVoiceSearchErrorCodePermissionDenied,      // 10
-    HoundVoiceSearchErrorCodeConnectionFailure,     // 11
-    HoundVoiceSearchErrorCodeConnectionTimeout      // 12
+    HoundVoiceSearchErrorCodeServerNoAudioError,    // 4
+    HoundVoiceSearchErrorCodeNoResponseReceived,    // 5
+    HoundVoiceSearchErrorCodeInvalidResponse,       // 6
+    HoundVoiceSearchErrorCodeAudioInterrupted,      // 7
+    HoundVoiceSearchErrorCodeParseFailed,           // 8
+    HoundVoiceSearchErrorCodeAuthenticationFailed,  // 9
+    HoundVoiceSearchErrorCodeInternalError,         // 10
+    HoundVoiceSearchErrorCodePermissionDenied,      // 11
+    HoundVoiceSearchErrorCodeApplicationNotActive,  // 12
+    HoundVoiceSearchErrorCodeConnectionFailure,     // 13
+    HoundVoiceSearchErrorCodeConnectionTimeout      // 14
 };
+
+NSString * houndVoiceSearchErrorDescriptionForCode(NSUInteger code);
 
 #pragma mark - HoundVoiceSearchState
 

@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  WakeUpPattern is the language pattern (a subset of the Terrier language) used by the client to activate hot phrase detection.
- The default value is "[[\"OK\"] . (\"Hound\")]". If you do NOT have a custom wake-up phrase, it is highly recommended to leave this value alone. This would include the majority of HoundifySDK callers.
+ The default value is "[[\"OK\"] . (\"Sound\"|\"Sound Hound\"|\"Hound\")]". If you do NOT have a custom wake-up phrase, it is highly recommended to leave this value alone. This would include the majority of HoundifySDK callers.
  If you DO have a custom wake up pattern, the pattern needs to be set here. This value should be set before initiating a voice query, as this is a value that is sent as part of the Request Info.
  Please note that the server does not handle wake-up phrase spotting, and setting this field does not activate hot phrase detection. That is handled by the property `enableHotPhraseDetection` on HoundVoiceSearch.
  Letting the server know your wake-up pattern is important, as it allows the server to ignore the wake-up phrase part of a query.

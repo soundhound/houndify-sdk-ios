@@ -97,7 +97,7 @@ If your application already has audio management code that interacts with AVAudi
         @code startListeningWithCompletionHandler: @endcode instead.
 
  @param inputSampleRate The sampling rate of the audio that will be passed into the SDK through <b>writeRawAudioData:</b>.
- @param handler This callback is invoked when the initalization is complete.
+ @param handler This callback is invoked on the main thread when the initalization is complete.
  */
 - (void)setupRawModeWithInputSampleRate:(double)inputSampleRate
     completionHandler:(HoundVoiceSearchErrorCallback __nullable)handler;
@@ -112,7 +112,7 @@ If your application already has audio management code that interacts with AVAudi
  
   @note The AVAudioSession for the application will be placed in the AVAudioSessionCategoryPlayAndRecord category and AVAudioSessionModeDefault mode
  
- @param handler This callback is invoked when the initalization is complete.
+ @param handler This callback is invoked on the main thread when the initalization is complete.
  */
 - (void)startListeningWithCompletionHandler:(HoundVoiceSearchErrorCallback __nullable)handler;
 
@@ -121,7 +121,7 @@ If your application already has audio management code that interacts with AVAudi
  
  Searches cannot be started when the SDK is not listening.
 
- @param handler This callback is invoked when the listening is stopped.
+ @param handler This callback is invoked on the main thread when the listening is stopped.
  */
 - (void)stopListeningWithCompletionHandler:(HoundVoiceSearchErrorCallback __nullable)handler;
 
@@ -134,7 +134,7 @@ If your application already has audio management code that interacts with AVAudi
  @param requestInfo A dictionary containing extra parameters for the search.
                      The following keys are set by default if not supplied by the caller:
                      UserID, RequestID, TimeStamp, TimeZone, ClientID, ClientVersion, DeviceID, ConversationState, UnitPreference, PartialTranscriptsDesired, ObjectByteCountPrefix, SDK, SDKVersion. See https://houndify.com/reference/RequestInfo
- @param responseHandler This callback is invoked during the search and may be called multiple times with different values.
+ @param responseHandler This callback is invoked during the search and may be called multiple times with different values. It is always called on the main thread.
  */
 - (void)startSearchWithRequestInfo:(NSDictionary<NSString*, id>* __nullable)requestInfo
     responseHandler:(HoundVoiceSearchResponseCallback __nullable)responseHandler;
@@ -147,7 +147,7 @@ If your application already has audio management code that interacts with AVAudi
                      The following keys are set by default if not supplied by the caller:
                      UserID, RequestID, TimeStamp, TimeZone, ClientID, ClientVersion, DeviceID, ConversationState, UnitPreference, PartialTranscriptsDesired, ObjectByteCountPrefix, SDK, SDKVersion. See https://houndify.com/reference/RequestInfo
  @param endPointURL The URL for a custom Houndify voice search endpoint.
- @param responseHandler This callback is invoked during the search and may be called multiple times with different values.
+ @param responseHandler This callback is invoked during the search and may be called multiple times with different values. It is always called on the main thread.
  */
 - (void)startSearchWithRequestInfo:(NSDictionary<NSString*, id>* __nullable)requestInfo
     endPointURL:(NSURL*)endPointURL

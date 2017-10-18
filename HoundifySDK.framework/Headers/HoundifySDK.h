@@ -19,4 +19,5 @@ FOUNDATION_EXPORT const unsigned char HoundifySDKVersionString[];
 #import <HoundifySDK/HoundSDKServerDataModels.h>
 #import <HoundifySDK/HoundVoiceSearch.h>
 #import <HoundifySDK/HoundTextSearch.h>
+#import <HoundifySDK/HoundMusicSearch.h>
 #import <HoundifySDK/Houndify.h>

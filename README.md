@@ -31,7 +31,7 @@ For Cocoapods user, simply do:
 ```ruby
 pod try HoundifySDK
 ```
-You can also download it from our website for [Swift version](https://static.houndify.com/sdks/ios/v1.2.1/HoundSDK-Sample-Swift-1.2.1_16.zip) or [Objective-C version](https://static.houndify.com/sdks/ios/v1.2.1/HoundSDK-Sample-ObjC-1.2.1_16.zip).
+You can also download it from our website for [Swift version](https://static.houndify.com/sdks/ios/v1.2.2/HoundSDK-Sample-Swift-1.2.2_17.zip) or [Objective-C version](https://static.houndify.com/sdks/ios/v1.2.2/HoundSDK-Sample-ObjC-1.2.2_17.zip).
 
 ## Documentation
 Visit https://docs.houndify.com/sdks/docs/ios for reference documentation.
