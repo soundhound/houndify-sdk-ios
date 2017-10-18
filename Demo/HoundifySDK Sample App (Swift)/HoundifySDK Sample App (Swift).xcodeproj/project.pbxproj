@@ -12,6 +12,8 @@
 		85CCA47B1F05BD4E0035F5D5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85CCA4791F05BD4E0035F5D5 /* Main.storyboard */; };
 		85CCA48D1F05C3A90035F5D5 /* AppImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85CCA48C1F05C3A90035F5D5 /* AppImages.xcassets */; };
 		85CCA48F1F05C4EF0035F5D5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 85CCA48E1F05C4EF0035F5D5 /* LaunchScreen.xib */; };
+		85CCA4911F05C58C0035F5D5 /* HoundifySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85CCA4901F05C58C0035F5D5 /* HoundifySDK.framework */; };
+		85CCA4921F05C58C0035F5D5 /* HoundifySDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 85CCA4901F05C58C0035F5D5 /* HoundifySDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		85CCA4A51F05C9640035F5D5 /* RawVoiceSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CCA4A11F05C9640035F5D5 /* RawVoiceSearchViewController.swift */; };
 		85CCA4A61F05C9640035F5D5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CCA4A21F05C9640035F5D5 /* SettingsViewController.swift */; };
 		85CCA4A71F05C9640035F5D5 /* TextSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CCA4A31F05C9640035F5D5 /* TextSearchViewController.swift */; };
@@ -28,6 +30,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				85CCA4921F05C58C0035F5D5 /* HoundifySDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -42,6 +45,7 @@
 		85CCA4811F05BD4E0035F5D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85CCA48C1F05C3A90035F5D5 /* AppImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppImages.xcassets; sourceTree = "<group>"; };
 		85CCA48E1F05C4EF0035F5D5 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		85CCA4901F05C58C0035F5D5 /* HoundifySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HoundifySDK.framework; sourceTree = "<group>"; };
 		85CCA4961F05C6CB0035F5D5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		85CCA4981F05C6D40035F5D5 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		85CCA49A1F05C6E40035F5D5 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -63,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85CCA4911F05C58C0035F5D5 /* HoundifySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +116,7 @@
 		85CCA4951F05C6CA0035F5D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				85CCA4901F05C58C0035F5D5 /* HoundifySDK.framework */,
 				85CCA49E1F05C70F0035F5D5 /* libc++.tbd */,
 				85CCA49C1F05C6F70035F5D5 /* libz.tbd */,
 				85CCA49A1F05C6E40035F5D5 /* Accelerate.framework */,
@@ -172,7 +178,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = SoundHound;
 				TargetAttributes = {
 					85CCA46F1F05BD4E0035F5D5 = {
@@ -254,7 +260,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -262,7 +270,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -305,7 +317,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -313,7 +327,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

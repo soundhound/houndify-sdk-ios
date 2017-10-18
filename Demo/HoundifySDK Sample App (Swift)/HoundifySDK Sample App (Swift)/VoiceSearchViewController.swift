@@ -62,12 +62,10 @@ class VoiceSearchViewController: UIViewController, UISearchBarDelegate {
         // as well as initiating listening for the hot phrase, if you are using it.
         
         HoundVoiceSearch.instance().startListening(completionHandler: { (error: Error?) in
-            DispatchQueue.main.async {
-                self.updateListeningButton()
-                
-                if let error = error {
-                    self.updateText = error.localizedDescription
-                }
+            self.updateListeningButton()
+            
+            if let error = error {
+                self.updateText = error.localizedDescription
             }
         })
     }
@@ -77,12 +75,10 @@ class VoiceSearchViewController: UIViewController, UISearchBarDelegate {
         // If you need to deactivate the HoundSDK AVAudioSession, call stopListening(completionHandler:)
         
         HoundVoiceSearch.instance().stopListening(completionHandler: { (error: Error?) in
-            DispatchQueue.main.async {
-                self.updateListeningButton()
-                
-                if let error = error {
-                    self.updateText = error.localizedDescription
-                }
+            self.updateListeningButton()
+            
+            if let error = error {
+                self.updateText = error.localizedDescription
             }
         })
     }
@@ -94,31 +90,29 @@ class VoiceSearchViewController: UIViewController, UISearchBarDelegate {
         HoundVoiceSearch.instance().start(withRequestInfo:nil, responseHandler:
             
             { (error: Error?, responseType: HoundVoiceSearchResponseType, response: Any?, dictionary: [String : Any]?, requestInfo: [String : Any]?) in
-                DispatchQueue.main.async {
-                    if let error = error as NSError? {
-                        self.updateText = "\(error.domain) \(error.code) \(error.localizedDescription)"
-                        return
+                if let error = error as NSError? {
+                    self.updateText = "\(error.domain) \(error.code) \(error.localizedDescription)"
+                    return
+                }
+                
+                if responseType == .partialTranscription, let partialResponse = response as? HoundDataPartialTranscript {
+                    // While a voice query is being recorded, the HoundSDK will provide ongoing transcription
+                    // updates which can be displayed to the user.
+                    
+                    self.updateText = partialResponse.partialTranscript
+                }
+                else if responseType == .houndServer {
+                    if let dict = dictionary {
+                        self.responseText = JSONAttributedFormatter.attributedString(from: dict, style: nil)
                     }
                     
-                    if responseType == .partialTranscription, let partialResponse = response as? HoundDataPartialTranscript {
-                        // While a voice query is being recorded, the HoundSDK will provide ongoing transcription
-                        // updates which can be displayed to the user.
-                        
-                        self.updateText = partialResponse.partialTranscript
+                    if  let houndServer = response as? HoundDataHoundServer,
+                        let commandResult = houndServer.allResults?.firstObject() as? HoundDataCommandResult,
+                        let nativeData = commandResult["NativeData"]
+                    {
+                        print("NativeData: \(nativeData)")
                     }
-                    else if responseType == .houndServer {                        
-                        if let dict = dictionary {
-                            self.responseText = JSONAttributedFormatter.attributedString(from: dict, style: nil)
-                        }
-                        
-                        if  let houndServer = response as? HoundDataHoundServer,
-                            let commandResult = houndServer.allResults?.firstObject() as? HoundDataCommandResult,
-                            let nativeData = commandResult["NativeData"]
-                        {
-                            print("NativeData: \(nativeData)")
-                        }
-                        
-                    }
+                    
                 }
             }
         )

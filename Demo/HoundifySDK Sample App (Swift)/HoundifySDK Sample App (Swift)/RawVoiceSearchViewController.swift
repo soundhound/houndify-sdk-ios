@@ -104,10 +104,8 @@ class RawVoiceSearchViewController: UIViewController, UISearchBarDelegate {
                     print(errorString)
                     self.setupState = .notSetUp
                 } else {
-                    DispatchQueue.main.async {
-                        self.setupState = .setUp
-                        self.houndVoiceSearchStateDidChange()
-                    }
+                    self.setupState = .setUp
+                    self.houndVoiceSearchStateDidChange()
                 }
             }
         )
@@ -126,23 +124,21 @@ class RawVoiceSearchViewController: UIViewController, UISearchBarDelegate {
         HoundVoiceSearch.instance().start(withRequestInfo: nil, responseHandler:
             
             { (error: Error?, responseType: HoundVoiceSearchResponseType, response: Any?, dictionary: [String : Any]?, requestInfo: [String : Any]?) in
-                DispatchQueue.main.async {
-                    if let error = error as NSError? {
-                        
-                        AudioTester.instance.stopAudioWithHandler(nil)
-                        self.updateText = "\(error.domain) \(error.code) \(error.localizedDescription)"
-                        
-                    } else if responseType == .partialTranscription, let partialResponse = response as? HoundDataPartialTranscript {
+                if let error = error as NSError? {
+                    
+                    AudioTester.instance.stopAudioWithHandler(nil)
+                    self.updateText = "\(error.domain) \(error.code) \(error.localizedDescription)"
+                    
+                } else if responseType == .partialTranscription, let partialResponse = response as? HoundDataPartialTranscript {
 
-                        // While a voice query is being recorded, the HoundSDK will provide ongoing transcription
-                        // updates which can be displayed to the user.
-                        
-                        self.updateText = partialResponse.partialTranscript
-                        
-                    } else if responseType == .houndServer, let dictionary = dictionary {
-                        
-                        self.responseText = JSONAttributedFormatter.attributedString(from: dictionary, style: nil)
-                    }
+                    // While a voice query is being recorded, the HoundSDK will provide ongoing transcription
+                    // updates which can be displayed to the user.
+                    
+                    self.updateText = partialResponse.partialTranscript
+                    
+                } else if responseType == .houndServer, let dictionary = dictionary {
+                    
+                    self.responseText = JSONAttributedFormatter.attributedString(from: dictionary, style: nil)
                 }
             }
         )

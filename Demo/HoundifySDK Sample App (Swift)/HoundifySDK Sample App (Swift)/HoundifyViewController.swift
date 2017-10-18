@@ -14,6 +14,7 @@ class HoundifyViewController: UIViewController {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var responseTextView: UITextView!
     @IBOutlet weak var listenButton: UIButton!
+    @IBOutlet weak var houndifyButton: UIButton!
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -45,15 +46,12 @@ class HoundifyViewController: UIViewController {
         // explicitly start HoundVoiceSearch listening.
         
         HoundVoiceSearch.instance().startListening(completionHandler: { (error: Error?) in
-            DispatchQueue.main.async {
-                
-                if let error = error {
-                    self.updateText = error.localizedDescription
-                } else {
-                    self.listenButton.isEnabled = false
-                    HoundVoiceSearch.instance().enableHotPhraseDetection = true
-                    self.refreshTextView()
-                }
+            if let error = error {
+                self.updateText = error.localizedDescription
+            } else {
+                self.listenButton.isEnabled = false
+                HoundVoiceSearch.instance().enableHotPhraseDetection = true
+                self.refreshTextView()
             }
         })
     }
@@ -138,7 +136,7 @@ class HoundifyViewController: UIViewController {
     }
     
     func handle(houndVoiceSearchHotPhraseNotification notification: Notification) {
-        activateVoiceSearch(nil)
+        activateVoiceSearch(self.houndifyButton)
     }
     
     // MARK: - Displayed Text
