@@ -1,4 +1,4 @@
 target 'HoundifySDK Sample App (Swift)' do
   use_frameworks!
-  pod 'HoundifySDK', :git => "https://web-git-a-1.melodis.com/iOS/HoundifySDK.git"
+  pod 'HoundifySDK'
 end
