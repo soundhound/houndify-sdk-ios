@@ -19,9 +19,17 @@ Finally, you don't need to be a scientist to use Houndify. Developers can get up
 ## Get started
 First register a client on https://wwww.houndify.com. <br>
 
+#### [Cocoapods](https://cocoapods.org)<br>
 Install the SDK via Cocoapods by adding the following line to your `Podfile`:
 ```ruby
 pod `HoundifySDK`
+```
+
+#### [Carthage](https://github.com/Carthage/Carthage)
+
+Install the SDK via Carthage by adding the following line to your `Cartfile`:
+```ruby
+github "soundhound/houndify-sdk-ios" ~> 1.2.2
 ```
 
 The SDK is also available for download at houndify.com
