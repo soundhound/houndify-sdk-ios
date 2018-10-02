@@ -29,7 +29,7 @@ pod `HoundifySDK`
 
 Install the SDK via Carthage by adding the following line to your `Cartfile`:
 ```ruby
-github "soundhound/houndify-sdk-ios" ~> 1.2.2
+github "soundhound/houndify-sdk-ios" ~> 1.2.3
 ```
 
 The SDK is also available for download at houndify.com
@@ -40,7 +40,7 @@ For Cocoapods user, simply do:
 pod try HoundifySDK
 ```
 
-You can also download sample projects from our website for [Swift version](https://static.houndify.com/sdks/ios/v1.2.2/HoundSDK-Sample-Swift-1.2.2_17.zip) or [Objective-C version](https://static.houndify.com/sdks/ios/v1.2.2/HoundSDK-Sample-ObjC-1.2.2_17.zip).
+You can also download sample projects from our website for [Swift version](https://static.houndify.com/sdks/ios/v1.2.3/HoundSDK-Sample-Swift-1.2.3_20.zip) or [Objective-C version](https://static.houndify.com/sdks/ios/v1.2.3/HoundSDK-Sample-ObjC-1.2.3_20.zip).
 
 ## Documentation
 Visit https://docs.houndify.com/sdks/docs/ios for reference documentation.
