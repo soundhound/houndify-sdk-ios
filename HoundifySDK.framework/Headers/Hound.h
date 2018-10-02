@@ -77,6 +77,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (void)handleDynamicResponse:(id)dynamicResponse andUpdateCommandResult:(HoundDataCommandResult  * _Nullable)commandResult;
 
+/**
+ Use setPhraseSpotterThreshold to adjust the sensitivity for phrase spotting.  Valid values are in the range [0..1]
+ The default value is 0.45.
+ With lower values the phrase spotter will trigger more frequently, capturing the wakeup phrase more often, but with increased chance for false positives.
+ Conversely, with higher values the phrase spotter will trigger less frequently, possibly missing the wakeup phrase more often, but with a lower false positive rate
+ Use getPhraseSpotterThreshold to obtain the current threshold setting.
+ */
++ (void)setPhraseSpotterThreshold:(float)threshold;
++ (float)getPhraseSpotterThreshold;
+
 /* Debug Logging
  *
  * Note: All debug logging is stored in a file located in the application's Documents folder.
