@@ -16,40 +16,57 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Notifications
 
+/**
+ HoundVoiceSearchStateChangeNotification is posted whenever the
+ currently active HoundVoiceSearchQuery changes its state, and
+ whenever the listening state of the SDK changes. The following fields
+ are available in the `userInfo` dictionary of the notification:
+
+ HoundVoiceSearchQueryKey                    : The query whose state changed. (Can be empty.)
+ HoundVoiceSearchQueryStateKey               : The current state of the current query.
+ HoundVoiceSearchListeningKey                : An NSNumber wrapped boolean of the current
+                                               listening state of the SDK.
+ HoundVoiceSearchListeningRestartOnActiveKey : Contains an NSNumber **YES** if the listening
+                                               state changed to true due to the application
+                                               returning to active state
+*/
 extern NSString* HoundVoiceSearchStateChangeNotification;
-extern NSString* HoundVoiceSearchHotPhraseNotification;
+extern NSString* HoundVoiceSearchQueryKey;
+extern NSString* HoundVoiceSearchQueryStateKey;
+extern NSString* HoundVoiceSearchListeningKey;
+extern NSString* HoundVoiceSearchListeningRestartOnActiveKey;
+
+/**
+ HoundVoiceSearchAudioLevelNotification is posted in listening mode
+ with the current audio level.  The audio level is a number between 0
+ and 1 containing the current audio level from the microphone. This
+ can be used for visualization purposes.  The level value is stored as
+ an NSNumber object in the object property of the notification. It can
+ be read using:
+ 
+ [notification.object floatValue]
+ */
 extern NSString* HoundVoiceSearchAudioLevelNotification;
+
+/**
+ During the **Recording** phase of a HoundVoiceSearchQuery,
+ HoundVoiceSearchPartialTranscriptionNotification broadcasts partial
+ transcriptions as they are received.
+ 
+ notification.object is of type HoundDataPartialTranscript
+ */
 extern NSString* HoundVoiceSearchPartialTranscriptionNotification;
+
+/**
+ HoundVoiceSearchFinalTranscriptionNotification broadcasts the final
+ transcription once a response arrives for a query. The string value
+ is in:
+ 
+ notification.userInfo[@"finalTranscription"]
+ */
 extern NSString* HoundVoiceSearchFinalTranscriptionNotification;
 
-#pragma mark - Errors
-
-extern NSString* HoundVoiceSearchErrorDomain;
-
-#pragma mark - HoundVoiceSearchErrorCode
-
-typedef NS_ENUM(NSUInteger, HoundVoiceSearchErrorCode)
-{
-    HoundVoiceSearchErrorCodeNone,                  // 0
-    HoundVoiceSearchErrorCodeCancelled,             // 1
-    HoundVoiceSearchErrorCodeNotReady,              // 2
-    HoundVoiceSearchErrorCodeServerStatusError,     // 3
-    HoundVoiceSearchErrorCodeServerNoAudioError,    // 4
-    HoundVoiceSearchErrorCodeNoResponseReceived,    // 5
-    HoundVoiceSearchErrorCodeInvalidResponse,       // 6
-    HoundVoiceSearchErrorCodeAudioInterrupted,      // 7
-    HoundVoiceSearchErrorCodeParseFailed,           // 8
-    HoundVoiceSearchErrorCodeAuthenticationFailed,  // 9
-    HoundVoiceSearchErrorCodeInternalError,         // 10
-    HoundVoiceSearchErrorCodePermissionDenied,      // 11
-    HoundVoiceSearchErrorCodeApplicationNotActive,  // 12
-    HoundVoiceSearchErrorCodeConnectionFailure,     // 13
-    HoundVoiceSearchErrorCodeConnectionTimeout      // 14
-};
-
-NSString * houndVoiceSearchErrorDescriptionForCode(NSUInteger code);
-
-#pragma mark - HoundVoiceSearchState
+#pragma mark - HoundVoiceSearchState (Deprecated)
 
 typedef NS_ENUM(NSUInteger, HoundVoiceSearchState)
 {

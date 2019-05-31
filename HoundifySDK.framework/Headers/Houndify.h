@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "HoundVoiceSearchConstants.h"
+#import "HoundVoiceSearchQuery.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,7 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Callbacks
 
-typedef void (^HoundifyResponseCallback)(
+typedef void (^HoundifyCallback)(HoundVoiceSearchQuery *query);
+
+typedef void (^HoundifyResponseCallback_deprecated)(
     NSError* __nullable error,
     id __nullable response,
     NSDictionary<NSString*, id>* __nullable dictionary,
@@ -38,9 +41,61 @@ typedef void (^HoundifyCompletionHandler)(void);
 + (instancetype)instance;
 
 /**
- This method initiates a voice search and starts a full screen takeover with the Hound user interface.
+ This method initiates a voice search and starts a full screen takeover with the Houndify user interface.
+
+ @param presentingViewController The view controller that will present the Houndify user interface.
+ Typically this is the root view controller for the main window.
+ @param presentingView The view to start the voice search animation.
+ The HoundifySDK will center the launch animation on this view's position.
+ @param style A HoundifyStyle object used to configure the look of the search UI.
+ @param configure This block provides access to the HoundVoiceSearchQuery instance
+ that will perform this search before the search begins. The instance can be configured,
+ for instance, by setting values on its requestInfoBuilder.
+ @param completion This block provides access to the backing HoundVoiceSearchQuery
+ instance after the query has received a response or an error. These are available
+ via the query's response and error properties
+ @return Returns an error if this method is called while a listening view controller
+ is already presented. Otherwise, returns nil.
+ */
+- (NSError * _Nullable)presentListeningViewControllerInViewController:(UIViewController*)presentingViewController
+                                                             fromView:(UIView* __nullable)presentingView
+                                                                style:(HoundifyStyle* __nullable)style
+                                                       configureQuery:(HoundifyCallback _Nullable)configure
+                                                           completion:(HoundifyCallback)completion;
+
+/**
+ This method initiates a voice search and starts a full screen takeover with the Houndify user interface.
  
- @param presentingViewController The view controller that will present the Hound user interface.
+ @param presentingViewController The view controller that will present the Houndify user interface.
+ Typically this is the root view controller for the main window.
+ @param point The position in the presentingViewController's view to start the voice search.
+ The Houndify SDK will center the launch animation on this point.
+ @param style A HoundifyStyle object used to configure the look of the search UI.
+ @param configure This block provides access to the HoundVoiceSearchQuery instance
+ that will perform this search before the search begins. The instance can be configured,
+ for instance by setting values on its requestInfoBuilder.
+ @param completion This block provides access to the backing HoundVoiceSearchQuery
+ instance after the query has received a response or an error. These are available
+ via the query's response and error propertyes
+ @return Returns an error if this method is called while a listening view controller
+ is already presented. Otherwise, returns nil.
+ */
+- (NSError * _Nullable)presentListeningViewControllerInViewController:(UIViewController*)presentingViewController
+                                                            fromPoint:(CGPoint)point
+                                                                style:(HoundifyStyle* __nullable)style
+                                                       configureQuery:(HoundifyCallback _Nullable)configure
+                                                           completion:(HoundifyCallback)completion;
+
+/**
+ The HoundVoiceSearchQuery instance that backs the currently presented view controller.
+ */
+@property (nonatomic, readonly, nullable) HoundVoiceSearchQuery *currentQuery;
+
+#pragma mark - Deprecated present methods
+/**
+ DEPRECATED: This method initiates a voice search and starts a full screen takeover with the Houndify user interface.
+ 
+ @param presentingViewController The view controller that will present the Houndify user interface.
                                  Typically this is the root view controller for the main window, such as a UINavigationController or UITabBarController.
  @param presentingView The view to start the voice search animation.
                          The HoundifySDK will center the launch animation on this view's position.
@@ -56,13 +111,14 @@ typedef void (^HoundifyCompletionHandler)(void);
     fromView:(UIView* __nullable)presentingView
     style:(HoundifyStyle* __nullable)style
     requestInfo:(NSDictionary<NSString*, id>* __nullable)requestInfo
-    responseHandler:(HoundifyResponseCallback)responseHandler;
+    responseHandler:(HoundifyResponseCallback_deprecated)responseHandler
+DEPRECATED_MSG_ATTRIBUTE("This method has been deprecated. Use -presentListeningViewControllerInViewController:fromView:style:configureQuery:completion:") ;
 
 /**
- This method initiates a voice search and starts a full screen takeover with the Hound user interface using a custom Houndify endpoint.
+ DEPRECATED: This method initiates a voice search and starts a full screen takeover with the Houndify user interface using a custom Houndify endpoint.
  Use the method above if you are not using a custom endpoint for voice search.
  
- @param presentingViewController The view controller that will present the Hound user interface.
+ @param presentingViewController The view controller that will present the Houndify user interface.
                                  Typically this is the root view controller for the main window, such as a UINavigationController or UITabBarController.
  @param presentingView The view to start the voice search animation.
                          The HoundifySDK will center the launch animation on this view's position.
@@ -80,15 +136,16 @@ typedef void (^HoundifyCompletionHandler)(void);
     style:(HoundifyStyle* __nullable)style
     requestInfo:(NSDictionary<NSString*, id>* __nullable)requestInfo
     endPointURL:(NSURL*)endPointURL
-    responseHandler:(HoundifyResponseCallback)responseHandler;
+    responseHandler:(HoundifyResponseCallback_deprecated)responseHandler
+DEPRECATED_MSG_ATTRIBUTE("This method has been deprecated. Use -presentListeningViewControllerInViewController:fromView:style:configureQuery:completion:") ;
 
 /**
- This method initiates a voice search and starts a full screen takeover with the Hound user interface.
+ DEPRECATED. This method initiates a voice search and starts a full screen takeover with the Houndify user interface.
  
- @param presentingViewController The view controller that will present the Hound user interface.
+ @param presentingViewController The view controller that will present the Houndify user interface.
                                  Typically this is the root view controller for the main window, such as a UINavigationController or UITabBarController.
  @param point The position in the presentingViewController's view to start the voice search.
-                    The Houndify SDKwill center the launch animation on this point.
+                    The Houndify SDK will center the launch animation on this point.
  @param style A HoundifyStyle object used to configure the look of the search UI.
  @param requestInfo A dictionary containing extra parameters for the search.
                      The following keys are set by default if not supplied by the caller:
@@ -101,13 +158,14 @@ typedef void (^HoundifyCompletionHandler)(void);
     fromPoint:(CGPoint)point
     style:(HoundifyStyle* __nullable)style
     requestInfo:(NSDictionary<NSString*, id>* __nullable)requestInfo
-    responseHandler:(HoundifyResponseCallback)responseHandler;
+    responseHandler:(HoundifyResponseCallback_deprecated)responseHandler
+DEPRECATED_MSG_ATTRIBUTE("This method has been deprecated. Use -presentListeningViewControllerInViewController:fromPoint:style:configureQuery:completion:") ;
 
 /**
- This method initiates a voice search and starts a full screen takeover with the Hound user interface using a custom Houndify endpoint.
+ DEPRECATED. This method initiates a voice search and starts a full screen takeover with the Houndify user interface using a custom Houndify endpoint.
  Use the method above if you are not using a custom endpoint for voice search.
  
- @param presentingViewController The view controller that will present the Hound user interface.
+ @param presentingViewController The view controller that will present the Houndify user interface.
                                  Typically this is the root view controller for the main window, such as a UINavigationController or UITabBarController.
  @param point The position in the presentingViewController's view to start the voice search.
                 The Houndify SDKwill center the launch animation on this point.
@@ -125,20 +183,25 @@ typedef void (^HoundifyCompletionHandler)(void);
     style:(HoundifyStyle* __nullable)style
     requestInfo:(NSDictionary<NSString*, id>* __nullable)requestInfo
     endPointURL:(NSURL*)endPointURL
-    responseHandler:(HoundifyResponseCallback)responseHandler;
+    responseHandler:(HoundifyResponseCallback_deprecated)responseHandler
+DEPRECATED_MSG_ATTRIBUTE("This method has been deprecated. Use -presentListeningViewControllerInViewController:fromPoint:style:configureQuery:completion:") ;
 
 
 /**
- This method dismisses the listening view controller and cancels a search if it is in progress.
+ DEPRECATED. This method dismisses the listening view controller and cancels a search if it is in progress.
  
- This method must be called once a response is received to remove the Houndify user interface from the screen.
+ This method must be called once a response is received from any of the deprecated
+ presentListeningViewControllerInViewController methods to remove the Houndify user interface from the screen.
+ 
+ Do not use it with -presentListeningViewControllerInViewController:from%View|Point%:style:configureQuery:completion:
  
  @param animated A flag indicating if the dismiss should be animated or not.
- @param completionHandler This callback is invoked once the Hound user interface is dismissed.
+ @param completionHandler This callback is invoked once the Houndify user interface is dismissed.
                             The callback has no parameters.
  */
 - (void)dismissListeningViewControllerAnimated:(BOOL)animated
-    completionHandler:(HoundifyCompletionHandler __nullable)completionHandler;
+    completionHandler:(HoundifyCompletionHandler __nullable)completionHandler
+DEPRECATED_MSG_ATTRIBUTE("This method has been deprecated.") ;
     
 @end
 

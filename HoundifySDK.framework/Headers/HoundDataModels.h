@@ -6,6 +6,9 @@
 //  Copyright (c) 2015 SoundHound, Inc. All rights reserved.
 //
 
+#ifndef HoundDataModels_h
+#define HoundDataModels_h
+
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -24,46 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#pragma mark - HoundDataArray
-
-@interface HoundDataArray : NSObject<NSFastEnumeration>
-
-@property(nullable, nonatomic, strong) NSMutableArray* array;
-
-- (instancetype)initWithArray:(NSArray*)array;
-
-- (NSUInteger)count;
-
-- (id __nullable)firstObject;
-- (id __nullable)lastObject;
-
-- (void)addObject:(id)object;
-- (void)addObjectsFromArray:(NSArray*)array;
-
-- (void)removeObjectAtIndex:(NSUInteger)index;
-
-- (id)objectAtIndexedSubscript:(NSUInteger)index;
-
-- (void)setObject:(id)object atIndexedSubscript:(NSUInteger)index;
-
-@end
-
-#pragma mark - HoundDataStringArray
-
-@interface HoundDataStringArray : HoundDataArray
-
-@end
-
-#pragma mark - HoundDataNumberArray
-
-@interface HoundDataNumberArray : HoundDataArray
-
-@end
-
-#pragma mark - HoundDataURLArray
-
-@interface HoundDataURLArray : HoundDataArray
-
-@end
-
 NS_ASSUME_NONNULL_END
+
+#endif
+

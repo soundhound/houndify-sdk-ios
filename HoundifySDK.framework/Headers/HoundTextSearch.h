@@ -17,6 +17,8 @@ extern NSString *const HoundTextSearchDefaultEndpoint;
 
 /**
  HoundTextSearchCallback
+ 
+ This callback is used only with the "Classic" HoundTextSearch API
 
  @param error Text search error returned by the server. Nullable.
  @param query Text query submitted.
@@ -34,12 +36,9 @@ typedef void (^HoundTextSearchCallback)(
 
 #pragma mark - HoundTextSearch
 
-@interface HoundTextSearch : NSObject
+@class HoundTextSearchQuery;
 
-/**
- A flag indicating if the SDK is currently executing a text search.
- */
-@property(nonatomic, assign, readonly) BOOL textSearchActive;
+@interface HoundTextSearch : NSObject
 
 /**
  Returns a singleton instance of HoundTextSearch.
@@ -47,9 +46,31 @@ typedef void (^HoundTextSearchCallback)(
 + (instancetype)instance;
 
 /**
+ Call this method to obtain a configured instance of HoundTextSearchQuery,
+ the first step of performing a Houndify text search.
+ 
+ Perform any additional needed configuration on the returned HoundTextSearchQuery
+ instance. For example, location information can be added to the query by setting
+ values on the instance's requestInfoBuilder.
+ 
+ To perform the search, call -startWithCompletion: on the query.
+ 
+ Results are returned via the completion block, or via the query's delegate.
+ 
+ @param searchText The text that will be searched for when the query is started.
+ @return A configured instance of HoundTextSearchQuery
+ */
+- (HoundTextSearchQuery *)newTextSearchWithSearchText:(NSString *)searchText;
+
+#pragma mark - HoundTextSearch Classic
+
+// The following methods from the 1.x vintage Houndify SDK are still supported
+// They offer less flexibility than -newTextSearchWithSearchText:
+
+/**
  Performs text-based Hound queries using the default endpoint, results are returned in the completion handler.
  
- @remark Note (1): The caller should populate the location keys in requestInfo. The SDK does not manage the user location.
+ @note The caller should populate the location keys in requestInfo. The SDK does not manage the user location.
  For a full description of parameters, refer to: https://houndify.com/reference/RequestInfo
  
  @param query Text query
@@ -66,7 +87,7 @@ typedef void (^HoundTextSearchCallback)(
  Performs text-based Hound queries, results are returned in the completion handler.
  Use the method above if you are not using a custom endpoint for text search.
 
- @remark Note (1): The caller should populate the location keys in requestInfo. The SDK does not manage the user location.
+ @note: The caller should populate the location keys in requestInfo. The SDK does not manage the user location.
  
  @param query Text query
  @param requestInfo A dictionary containing extra parameters for the search.
@@ -82,9 +103,16 @@ typedef void (^HoundTextSearchCallback)(
     completionHandler:(HoundTextSearchCallback __nullable)handler;
 
 /**
- Cancels the currently in progress text search.
+ Cancels a currently in progress text search originating from a -searchWithQuery:... method.
  */
 - (void)cancelSearch;
+
+/**
+ A flag indicating if the SDK is currently executing a text search from a -searchWithQuery:... method.
+ */
+@property(nonatomic, assign, readonly) BOOL textSearchActive;
+
+
 
 @end
 
