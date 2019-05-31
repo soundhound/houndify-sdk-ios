@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8551EE711F0727A6005BD268 /* UITabBarController+additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8551EE701F0727A6005BD268 /* UITabBarController+additions.swift */; };
+		857EFBCF21F6682F00AFD63B /* HoundifyPhraseSpotter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 857EFBCE21F6682F00AFD63B /* HoundifyPhraseSpotter.framework */; };
+		857EFBD121F6684100AFD63B /* HoundifyPhraseSpotter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 857EFBCE21F6682F00AFD63B /* HoundifyPhraseSpotter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		85A16DFB226E310000E9EFC9 /* HoundDataCommandResult-Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A16DFA226E310000E9EFC9 /* HoundDataCommandResult-Extras.swift */; };
 		85CCA4741F05BD4E0035F5D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CCA4731F05BD4E0035F5D5 /* AppDelegate.swift */; };
 		85CCA47B1F05BD4E0035F5D5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85CCA4791F05BD4E0035F5D5 /* Main.storyboard */; };
 		85CCA48D1F05C3A90035F5D5 /* AppImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85CCA48C1F05C3A90035F5D5 /* AppImages.xcassets */; };
@@ -31,6 +34,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				85CCA4921F05C58C0035F5D5 /* HoundifySDK.framework in Embed Frameworks */,
+				857EFBD121F6684100AFD63B /* HoundifyPhraseSpotter.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -39,6 +43,8 @@
 
 /* Begin PBXFileReference section */
 		8551EE701F0727A6005BD268 /* UITabBarController+additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITabBarController+additions.swift"; sourceTree = "<group>"; };
+		857EFBCE21F6682F00AFD63B /* HoundifyPhraseSpotter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HoundifyPhraseSpotter.framework; sourceTree = "<group>"; };
+		85A16DFA226E310000E9EFC9 /* HoundDataCommandResult-Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HoundDataCommandResult-Extras.swift"; sourceTree = "<group>"; };
 		85CCA4701F05BD4E0035F5D5 /* HoundifySDK Sample App (Swift).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HoundifySDK Sample App (Swift).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		85CCA4731F05BD4E0035F5D5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		85CCA47A1F05BD4E0035F5D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -68,6 +74,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				85CCA4911F05C58C0035F5D5 /* HoundifySDK.framework in Frameworks */,
+				857EFBCF21F6682F00AFD63B /* HoundifyPhraseSpotter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,6 +123,7 @@
 		85CCA4951F05C6CA0035F5D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				857EFBCE21F6682F00AFD63B /* HoundifyPhraseSpotter.framework */,
 				85CCA4901F05C58C0035F5D5 /* HoundifySDK.framework */,
 				85CCA49E1F05C70F0035F5D5 /* libc++.tbd */,
 				85CCA49C1F05C6F70035F5D5 /* libz.tbd */,
@@ -146,6 +154,7 @@
 				85CCA4AE1F05DA000035F5D5 /* JSONAttributedFormatter.h */,
 				85CCA4AF1F05DA000035F5D5 /* JSONAttributedFormatter.m */,
 				85CCA4AC1F05DA000035F5D5 /* HoundifySDK Sample App (Swift)-Bridging-Header.h */,
+				85A16DFA226E310000E9EFC9 /* HoundDataCommandResult-Extras.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -178,7 +187,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = SoundHound;
 				TargetAttributes = {
 					85CCA46F1F05BD4E0035F5D5 = {
@@ -190,7 +199,7 @@
 			};
 			buildConfigurationList = 85CCA46B1F05BD4E0035F5D5 /* Build configuration list for PBXProject "HoundifySDK Sample App (Swift)" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -230,6 +239,7 @@
 				8551EE711F0727A6005BD268 /* UITabBarController+additions.swift in Sources */,
 				85CCA4B01F05DA000035F5D5 /* AudioTester.swift in Sources */,
 				85CCA4A71F05C9640035F5D5 /* TextSearchViewController.swift in Sources */,
+				85A16DFB226E310000E9EFC9 /* HoundDataCommandResult-Extras.swift in Sources */,
 				85CCA4AA1F05C9ED0035F5D5 /* HoundifyViewController.swift in Sources */,
 				85CCA4A61F05C9640035F5D5 /* SettingsViewController.swift in Sources */,
 				85CCA4A81F05C9640035F5D5 /* VoiceSearchViewController.swift in Sources */,
@@ -254,6 +264,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -264,6 +275,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -271,6 +283,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -311,6 +324,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -321,6 +335,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -328,6 +343,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -373,7 +389,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "HoundifySDK Sample App (Swift)/HoundifySDK Sample App (Swift)-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -393,7 +409,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.soundhound.HoundifySDK-Sample-App--Swift-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "HoundifySDK Sample App (Swift)/HoundifySDK Sample App (Swift)-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

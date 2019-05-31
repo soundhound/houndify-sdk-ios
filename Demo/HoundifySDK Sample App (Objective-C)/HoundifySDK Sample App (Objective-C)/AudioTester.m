@@ -134,7 +134,7 @@ NSString* AudioTesterErrorDomain = @"AudioTesterErrorDomain";
                                 }
                                 else
                                 {
-                                    status = AudioComponentInstanceNew(audioComponent, &_audioUnit);
+                                    status = AudioComponentInstanceNew(audioComponent, &(self->_audioUnit));
                                     
                                     if (status == kAudioServicesNoError)
                                     {

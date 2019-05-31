@@ -20,6 +20,7 @@
 		8551EF081F16CAAB005BD268 /* AppImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8551EF061F16CAAB005BD268 /* AppImages.xcassets */; };
 		8551EF091F16CAAB005BD268 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8551EF071F16CAAB005BD268 /* LaunchScreen.xib */; };
 		8551EF131F16D7F5005BD268 /* UITabBarController+HoundifySample.m in Sources */ = {isa = PBXBuildFile; fileRef = 8551EF121F16D7F5005BD268 /* UITabBarController+HoundifySample.m */; };
+		8596E493227250930077D30C /* HoundDataCommandResult+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 8596E492227250930077D30C /* HoundDataCommandResult+Extras.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -60,6 +61,8 @@
 		8551EF071F16CAAB005BD268 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		8551EF111F16D7F5005BD268 /* UITabBarController+HoundifySample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+HoundifySample.h"; sourceTree = "<group>"; };
 		8551EF121F16D7F5005BD268 /* UITabBarController+HoundifySample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+HoundifySample.m"; sourceTree = "<group>"; };
+		8596E491227250930077D30C /* HoundDataCommandResult+Extras.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HoundDataCommandResult+Extras.h"; sourceTree = "<group>"; };
+		8596E492227250930077D30C /* HoundDataCommandResult+Extras.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HoundDataCommandResult+Extras.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +81,7 @@
 			children = (
 				8551EED31F16C4E6005BD268 /* HoundifySDK Sample App (Objective-C) */,
 				8551EED21F16C4E6005BD268 /* Products */,
+				857EFC2321F7EC4000AFD63B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -138,6 +142,8 @@
 				8551EF001F16C91C005BD268 /* AudioTester.m */,
 				8551EF011F16C91C005BD268 /* JSONAttributedFormatter.h */,
 				8551EF021F16C91C005BD268 /* JSONAttributedFormatter.m */,
+				8596E491227250930077D30C /* HoundDataCommandResult+Extras.h */,
+				8596E492227250930077D30C /* HoundDataCommandResult+Extras.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -149,6 +155,13 @@
 				8551EF071F16CAAB005BD268 /* LaunchScreen.xib */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		857EFC2321F7EC4000AFD63B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,7 +191,7 @@
 		8551EEC91F16C4E6005BD268 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = SoundHound;
 				TargetAttributes = {
 					8551EED01F16C4E6005BD268 = {
@@ -189,7 +202,7 @@
 			};
 			buildConfigurationList = 8551EECC1F16C4E6005BD268 /* Build configuration list for PBXProject "HoundifySDK Sample App (Objective-C)" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -223,6 +236,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8596E493227250930077D30C /* HoundDataCommandResult+Extras.m in Sources */,
 				8551EED91F16C4E6005BD268 /* AppDelegate.m in Sources */,
 				8551EF031F16C91C005BD268 /* AudioTester.m in Sources */,
 				8551EED61F16C4E6005BD268 /* main.m in Sources */,
@@ -264,6 +278,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -271,6 +286,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -318,6 +334,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -325,6 +342,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

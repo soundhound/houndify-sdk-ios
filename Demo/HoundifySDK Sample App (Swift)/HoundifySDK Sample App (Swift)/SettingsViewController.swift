@@ -13,20 +13,14 @@ class SettingsViewController: UIViewController {
 	
 	@IBOutlet weak var enableEndOfSpeechDetectionSwitch: UISwitch!
 	@IBOutlet weak var enableHotPhraseSwitch: UISwitch!
-	@IBOutlet weak var enableSpeechSwitch: UISwitch!
 	
 	//MARK: ViewController life cycle.
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		self.enableSpeechSwitch.isOn = HoundVoiceSearch.instance().enableSpeech
 		self.enableHotPhraseSwitch.isOn = HoundVoiceSearch.instance().enableHotPhraseDetection
 		self.enableEndOfSpeechDetectionSwitch.isOn = HoundVoiceSearch.instance().enableEndOfSpeechDetection
     }
-	
-	@IBAction func enableSpeechValueChanged(_ sender: AnyObject) {
-		HoundVoiceSearch.instance().enableSpeech = self.enableSpeechSwitch.isOn
-	}
 	
 	@IBAction func enableHotPhraseValueChanged(_ sender: AnyObject) {
 		HoundVoiceSearch.instance().enableHotPhraseDetection = self.enableHotPhraseSwitch.isOn

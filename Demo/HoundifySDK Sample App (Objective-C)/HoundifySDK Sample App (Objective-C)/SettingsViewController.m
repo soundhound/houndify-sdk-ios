@@ -13,7 +13,6 @@
 
 @interface SettingsViewController()
 
-@property(nonatomic, strong) IBOutlet UISwitch* enableSpeechSwitch;
 @property(nonatomic, strong) IBOutlet UISwitch* enableSpeechActivationDetectionSwitch;
 @property(nonatomic, strong) IBOutlet UISwitch* enableEndOfSpeechDetectionSwitch;
 
@@ -32,7 +31,6 @@
     
     // Update UI based on current settings
     
-    self.enableSpeechSwitch.on = HoundVoiceSearch.instance.enableSpeech;
     self.enableSpeechActivationDetectionSwitch.on = HoundVoiceSearch.instance.enableHotPhraseDetection;
     self.enableEndOfSpeechDetectionSwitch.on = HoundVoiceSearch.instance.enableEndOfSpeechDetection;
 }
@@ -40,11 +38,6 @@
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
-}
-
-- (IBAction)enableSpeechValueChanged
-{
-    HoundVoiceSearch.instance.enableSpeech = self.enableSpeechSwitch.on;
 }
 
 - (IBAction)enableSpeechActivationDetectionValueChanged

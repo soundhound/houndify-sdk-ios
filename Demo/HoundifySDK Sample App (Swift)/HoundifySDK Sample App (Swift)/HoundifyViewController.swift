@@ -15,13 +15,22 @@ class HoundifyViewController: UIViewController {
     @IBOutlet weak var responseTextView: UITextView!
     @IBOutlet weak var listenButton: UIButton!
     @IBOutlet weak var houndifyButton: UIButton!
+    
+    var originalTextViewFont: UIFont?
+    var originalTextViewColor: UIColor?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        originalTextViewFont = responseTextView.font
+        originalTextViewColor = responseTextView.textColor
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         listenButton.titleLabel?.numberOfLines = 0
         
-        listenButton.isEnabled = HoundVoiceSearch.instance().state == .none || HoundVoiceSearch.instance().enableHotPhraseDetection == false
+        listenButton.isEnabled = !HoundVoiceSearch.instance().isListening || HoundVoiceSearch.instance().enableHotPhraseDetection == false
         resetTextView()
         
         //Add Notifications
@@ -59,7 +68,7 @@ class HoundifyViewController: UIViewController {
     @IBAction func beginListeningButtonPressed(_ sender: UIButton?) {
         tabBarController?.disableAllVoiceSearchControllers(except: self)
         
-        if HoundVoiceSearch.instance().state == .none {
+        if !HoundVoiceSearch.instance().isListening {
             startListeningForHotPhrase()
         } else {
             HoundVoiceSearch.instance().enableHotPhraseDetection = true
@@ -73,55 +82,95 @@ class HoundifyViewController: UIViewController {
         
         tabBarController.disableAllVoiceSearchControllers(except: self)
         
+        if Houndify.instance().currentQuery?.state == .speaking {
+            Houndify.instance().currentQuery?.stopSpeaking()
+            return
+        }
+        
         resetTextView()
         
-        // Launch the houndify listening UI using presentListeningViewController(in:, from:, style:, requestInfo:, responseHandler:)
+        // Launch the houndify listening UI using presentListeningViewController(in:, from:, style:, configureQuery:, completion:)
         
         Houndify.instance().presentListeningViewController(in: tabBarController,
                                                            from: sender,
                                                            style: nil,
-                                                           requestInfo: [:], 
-                                                           responseHandler:
+                                                           configureQuery:
             
-            { (error: Error?, response: Any?, dictionary: [String : Any]?, requestInfo: [String : Any]?) in
-                if let error = error as NSError? {
+            { (query) in
+                // If not using the default, Set the end point URL here.
+                // query.endPointURL = URL(string: "custom.url.com")
+                
+                // Example of setting location, hardcoded to Santa Clara
+                query.requestInfoBuilder.latitude = 37.387390
+                query.requestInfoBuilder.longitude = -121.974447
+                query.requestInfoBuilder.positionTime = Int(Date().timeIntervalSince1970)
+                query.requestInfoBuilder.positionHorizontalAccuracy = 10
+            },
+                                                           
+                                                           completion:
+            
+            { (query) in
+                if let error = query.error as NSError? {
                     self.updateText = "\(error.domain) \(error.code) \(error.localizedDescription)"
-                } else if let dictionary = dictionary {
-                    self.responseText = JSONAttributedFormatter.attributedString(from: dictionary, style: nil)
+                } else if let dictionary = query.dictionary {
+                    let commandResult = query.response?.allResults?.first
+                    
+                    // This sample app includes more detailed examples of how to use a CommandResult
+                    // for some queries. See HoundDataCommandResult-Extras.swift
+                    if let exampleText = commandResult?.exampleResultText() {
+                        self.responseText = exampleText
+                    } else {
+                        self.responseText = JSONAttributedFormatter.attributedString(from: dictionary, style: nil)
+                    }
                 }
                 
-                if  let serverData = response as? HoundDataHoundServer,
-                    let commandResult = serverData.allResults?.firstObject() as? HoundDataCommandResult,
+                // Any commandResult properties from the documentation can be accessed through the keyed accessors, e.g.:
+                
+                if  let serverData = query.response,
+                    let commandResult = serverData.allResults?.first,
                     let nativeData = commandResult["NativeData"]
                 {
                     print("NativeData: \(nativeData)")
                 }
                 
-                self.dismissSearch()
-            }
-        )
-    }
-    
-    fileprivate func dismissSearch() {
-        Houndify.instance().dismissListeningViewController(animated: true, completionHandler: nil)
+                // It is the application's responsibility to initiate text-to-speech for the response
+                // if it desired.
+                // The SDK provides the speakResponse() method on HoundVoiceSearchQuery, or the
+                // the application may use its own TTS support.
+                query.speakResponse()
+        })
+        
     }
     
     // MARK: - Notifications
     
-    func handle(houndVoiceSearchStateChangeNotification notification: Notification) {
-        var statusString = ""
+    @objc func handle(houndVoiceSearchStateChangeNotification notification: Notification) {
         
-        switch HoundVoiceSearch.instance().state {
-        case .none:
+        // Check whether listening has been disabled.
+        guard HoundVoiceSearch.instance().isListening else {
             // Don't update UI when audio is disabled for backgrounding.
             if UIApplication.shared.applicationState == .active {
-                statusString = ""
+                self.statusLabel.text = ""
                 listenButton.isEnabled = true
                 refreshTextView()
             }
-        case .ready:
+            return
+        }
+        
+        listenButton.isEnabled = HoundVoiceSearch.instance().enableHotPhraseDetection == false
+        
+        // Check whether there is a current query
+        guard let query = notification.userInfo?[HoundVoiceSearchQueryKey] as? HoundVoiceSearchQuery else {
+            self.statusLabel.text = "Listening"
+            refreshTextView()
+            return
+        }
+        
+        var statusString = ""
+        
+        switch query.state {
+        case .notStarted, .finished:
             statusString = "Listening"
-            listenButton.isEnabled = HoundVoiceSearch.instance().enableHotPhraseDetection == false
             refreshTextView()
         case .recording:
             statusString = "Recording"
@@ -130,27 +179,29 @@ class HoundifyViewController: UIViewController {
             statusString = "Searching"
         case .speaking:
             statusString = "Speaking"
+        @unknown default:
+            break
         }
         
         self.statusLabel.text = statusString
     }
     
-    func handle(houndVoiceSearchHotPhraseNotification notification: Notification) {
+    @objc func handle(houndVoiceSearchHotPhraseNotification notification: Notification) {
         activateVoiceSearch(self.houndifyButton)
     }
     
     // MARK: - Displayed Text
 
-    private var explanatoryText: String? {
+    private var explanatoryText: String {
         var text = ""
         
-        if HoundVoiceSearch.instance().state == .none || HoundVoiceSearch.instance().state == .ready {
+        if !HoundVoiceSearch.instance().isListening || !(Houndify.instance().currentQuery?.isActive == true) {
             text = "Houndify.h offers the simplest API for offering voice search in your app. It provides a UI and manages audio for you. Tap the microphone to begin a voice search with presentListeningViewController(...)"
         } else {
             return ""
         }
         
-        if HoundVoiceSearch.instance().state == .none || HoundVoiceSearch.instance().enableHotPhraseDetection == false {
+        if !HoundVoiceSearch.instance().isListening || HoundVoiceSearch.instance().enableHotPhraseDetection == false {
             text += "\n\nTo use a hot phrase with the Houndify UI, audio must first be explicitly activated. See startListeningForHotPhrase() in HoundifyViewController in this sample code. Tap \"Listen for Hot Phrase\""
         }
         
@@ -175,6 +226,9 @@ class HoundifyViewController: UIViewController {
     }
     
     private func refreshTextView() {
+        responseTextView.font = originalTextViewFont
+        responseTextView.textColor = originalTextViewColor
+        
         if let responseText = responseText {
             responseTextView.attributedText = responseText
         } else if let updateText = updateText {

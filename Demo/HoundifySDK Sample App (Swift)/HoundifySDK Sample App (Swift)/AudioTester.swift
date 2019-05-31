@@ -74,7 +74,7 @@ class AudioTester {
 						return
 					}
 					do {
-						try self._session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
+						try self._session.setCategory(.playAndRecord, options: .defaultToSpeaker)
 						try self._session.setPreferredSampleRate(sampleRate)
 						try self._session.setActive(true)
 						
@@ -214,8 +214,8 @@ class AudioTester {
 	}
 	
 	fileprivate func requestPermissions(_ completionHandler: @escaping AudioTesterPermissionCallback) {
-		var permission: AVAudioSessionRecordPermission = .undetermined
-		permission = self._session.recordPermission()
+		var permission: AVAudioSession.RecordPermission = .undetermined
+        permission = self._session.recordPermission
 		
 		switch (permission) {
         case AVAudioSessionRecordPermission.denied:

@@ -9,6 +9,7 @@
 #import "RawVoiceSearchViewController.h"
 #import "JSONAttributedFormatter.h"
 #import "UITabBarController+HoundifySample.h"
+#import "HoundDataCommandResult+Extras.h"
 #import "AudioTester.h"
 @import HoundifySDK;
 @import AVFoundation;
@@ -24,7 +25,7 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
 
 #pragma mark - RawVoiceSearchViewController
 
-@interface RawVoiceSearchViewController()
+@interface RawVoiceSearchViewController() <HoundVoiceSearchQueryDelegate>
 
 @property(nonatomic, strong) IBOutlet UIButton* setupButton;
 @property(nonatomic, weak) IBOutlet UIButton* searchButton;
@@ -33,9 +34,14 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
 
 @property(nonatomic, assign) RawVoiceSearchViewControllerSetupState setupState;
 
+@property(nonatomic, strong) HoundVoiceSearchQuery *query;
+
 @property (nonatomic, readonly) NSString *explanatoryText;
 @property (nonatomic, copy) NSString *updateText;
 @property (nonatomic, copy) NSAttributedString *responseText;
+
+@property (nonatomic, strong) UIFont *originalTextViewFont;
+@property (nonatomic, strong) UIColor *originalTextViewColor;
 
 @end
 
@@ -45,13 +51,17 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
 {
     _setupState = setupState;
     
-    self.setupButton.hidden = _setupState == RawVoiceSearchViewControllerSetupStateSetUp;
-    self.setupButton.enabled = _setupState == RawVoiceSearchViewControllerSetupStateNotSetUp;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.setupButton.hidden = self.setupState == RawVoiceSearchViewControllerSetupStateSetUp;
+        self.setupButton.enabled = self.setupState == RawVoiceSearchViewControllerSetupStateNotSetUp;
+    });
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.originalTextViewFont = self.textView.font;
     
     [self refreshTextView];
 }
@@ -62,17 +72,16 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
     
     // Add notifications
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleHoundVoiceSearchStateChangeNotification:)
-                                                 name:HoundVoiceSearchStateChangeNotification
-                                               object:nil];
-    
     // Observe HoundVoiceSearchHotPhraseNotification to be notified of when the hot phrase is detected.
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(hotPhrase)
                                                  name:HoundVoiceSearchHotPhraseNotification
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationWillResignActive:)
+                                                 name:UIApplicationWillResignActiveNotification
+                                               object:nil];
 }
 
 
@@ -82,6 +91,53 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
     
     [NSNotificationCenter.defaultCenter removeObserver:self];
 }
+
+- (void)refreshUI
+{
+    // Search button
+    if (self.query && self.query.state != HoundVoiceSearchQueryStateFinished) {
+        [self.searchButton setTitle:@"Stop" forState:UIControlStateNormal];
+        self.searchButton.enabled = YES;
+    } else {
+        [self.searchButton setTitle:@"Search" forState:UIControlStateNormal];
+        self.searchButton.enabled = [HoundVoiceSearch instance].isListening;
+    }
+    
+    if (self.setupState != RawVoiceSearchViewControllerSetupStateSetUp) {
+        self.searchButton.backgroundColor = [self.view.tintColor colorWithAlphaComponent:0.5];
+    } else if (self.query.state == HoundVoiceSearchQueryStateSpeaking) {
+        self.searchButton.backgroundColor = [UIColor redColor];
+    } else {
+        self.searchButton.backgroundColor = self.view.tintColor;
+    }
+    
+    // Status Text
+    NSString *status = nil;
+    
+    if (self.setupState != RawVoiceSearchViewControllerSetupStateSetUp) {
+        status = @"Not Ready";
+    } else if (self.query) {
+        switch (self.query.state) {
+            case HoundVoiceSearchQueryStateRecording:
+                status = @"Recording";
+                break;
+            case HoundVoiceSearchQueryStateSearching:
+                status = @"Searching";
+                break;
+            case HoundVoiceSearchQueryStateSpeaking:
+                status = @"Speaking";
+                break;
+            default:
+                status = @"Ready";
+                break;
+        }
+    } else {
+        status = @"Ready";
+    }
+    
+    [self updateStatus:status];
+}
+
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
@@ -134,7 +190,8 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
              self.setupState = RawVoiceSearchViewControllerSetupStateNotSetUp;
          } else {
              self.setupState = RawVoiceSearchViewControllerSetupStateSetUp;
-             [self houndVoiceSearchStateDidChange];
+             [self refreshUI];
+             [self refreshTextView];
          }
      }];
 }
@@ -149,97 +206,154 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
 
 - (void)startSearch
 {
-    [[HoundVoiceSearch instance] startSearchWithRequestInfo:nil responseHandler:
-     
-     ^(NSError * _Nullable error, HoundVoiceSearchResponseType responseType, id  _Nullable response, NSDictionary<NSString *,id> * _Nullable dictionary, NSDictionary<NSString *,id> * _Nullable requestInfo) {
-         
-         if (error)
-         {
-             [[AudioTester instance] stopAudioWithHandler:nil];
-             
-             self.updateText = [NSString stringWithFormat:@"%@ (%d)\n%@",
-                                error.domain,
-                                (int)error.code,
-                                error.localizedDescription
-                                ];
-             return;
-         }
-         
-         if (responseType == HoundVoiceSearchResponseTypePartialTranscription) {
-             // While a voice query is being recorded, the HoundSDK will provide ongoing transcription
-             // updates which can be displayed to the user.
-             
-             HoundDataPartialTranscript* partialTranscript = (HoundDataPartialTranscript*)response;
-             
-             self.updateText = partialTranscript.partialTranscript;
-         } else if (responseType == HoundVoiceSearchResponseTypeHoundServer) {
-             
-             self.responseText = [JSONAttributedFormatter
-                                  attributedStringFromObject:dictionary
-                                  style:nil];
-             
-         }
-     }];
+    if (self.query.isActive || self.setupState != RawVoiceSearchViewControllerSetupStateSetUp) {
+        return;
+    }
+    // To perform a voice search, create an instance of HoundVoiceSearchQuery
+    // Configure it, including setting its delegate
+    // And call -start
+    
+    self.query = [[HoundVoiceSearch instance] newVoiceSearch];
+    
+    self.query.delegate = self;
+    
+    // An example of how to use RequestInfo: set the location to SoundHound HQ.
+    // a real application, of course, one would use location services to determine
+    // the device's location.
+    
+    self.query.requestInfoBuilder.latitude = 37.4089054;
+    self.query.requestInfoBuilder.longitude = -121.9849621;
+    self.query.requestInfoBuilder.positionTime = lround([[NSDate date] timeIntervalSince1970]);
+    self.query.requestInfoBuilder.positionHorizontalAccuracy = 10.0;
+    
+    [self.query start];
+    
 }
 
-- (void)houndVoiceSearchStateDidChange
+# pragma mark - HoundVoiceSearchQueryDelegate
+
+- (void)houndVoiceSearchQuery:(HoundVoiceSearchQuery *)query changedStateFrom:(HoundVoiceSearchQueryState)oldState to:(HoundVoiceSearchQueryState)newState
 {
-    switch (HoundVoiceSearch.instance.state)
-    {
-        case HoundVoiceSearchStateNone:
-            
-            // Don't update UI when audio is disabled for backgrounding.
-            if (UIApplication.sharedApplication.applicationState == UIApplicationStateActive) {
-                self.statusLabel.text = @"Not Ready";
-                self.searchButton.enabled = NO;
-                [self.searchButton setTitle:@"Search" forState:UIControlStateNormal];
-                self.searchButton.backgroundColor = [self.view.tintColor colorWithAlphaComponent:0.5];
-                [self resetTextView];
-            }
-            break;
-            
-        case HoundVoiceSearchStateReady:
-            
-            self.statusLabel.text = @"Ready";
-            self.searchButton.enabled = YES;
-            [self.searchButton setTitle:@"Search" forState:UIControlStateNormal];
-            self.searchButton.backgroundColor = self.view.tintColor;
-            [self refreshTextView];
-            break;
-            
-        case HoundVoiceSearchStateRecording:
-            
-            self.statusLabel.text = @"Recording";
-            self.searchButton.enabled = YES;
-            [self.searchButton setTitle:@"Stop" forState:UIControlStateNormal];
-            self.searchButton.backgroundColor = self.view.tintColor;
-            [self refreshTextView];
-            break;
-            
-        case HoundVoiceSearchStateSearching:
-            
-            self.statusLabel.text = @"Searching";
-            self.searchButton.enabled = YES;
-            [self.searchButton setTitle:@"Stop" forState:UIControlStateNormal];
-            self.searchButton.backgroundColor = self.view.tintColor;
-            break;
-            
-        case HoundVoiceSearchStateSpeaking:
-            
-            self.statusLabel.text = @"Speaking";
-            self.searchButton.enabled = YES;
-            [self.searchButton setTitle:@"Stop" forState:UIControlStateNormal];
-            self.searchButton.backgroundColor = UIColor.redColor;
-            break;
+    [self refreshUI];
+    
+    if (newState == HoundVoiceSearchQueryStateFinished) {
+        [self refreshTextView];
+    }
+}
+
+- (void)houndVoiceSearchQuery:(HoundVoiceSearchQuery *)query didReceivePartialTranscription:(HoundDataPartialTranscript *)partialTranscript
+{
+    // While a voice query is being recorded, the HoundSDK will provide ongoing transcription
+    // updates which can be displayed to the user.
+    
+    if (query == self.query) {
+        self.updateText = partialTranscript.partialTranscript;
+    }
+}
+
+- (void)houndVoiceSearchQuery:(HoundVoiceSearchQuery *)query didReceiveSearchResult:(HoundDataHoundServer *)houndServer dictionary:(NSDictionary *)dictionary
+{
+    if (query != self.query) {
+        return;
+    }
+    
+    // Domains that work with client features often return incomplete results that need
+    // to be completed by the application before they are ready to use. See this method for
+    // an example
+    [self tryUpdateQueryResponse:query];
+    
+    HoundDataCommandResult *commandResult = houndServer.allResults.firstObject;
+    
+    // This sample app includes more detailed examples of how to use a CommandResult
+    // for some queries. See HoundDataCommandResult-Extras.m
+    NSAttributedString *specialExampleText = [commandResult exampleResultText];
+    
+    if (specialExampleText) {
+        self.responseText = specialExampleText;
+    } else {
+        self.responseText = [JSONAttributedFormatter attributedStringFromObject:dictionary style:nil];
+    }
+    
+    if (commandResult[@"NativeData"]) {
+        NSLog(@"NativeData: %@", commandResult[@"NativeData"]);
+    }
+    
+    // It is the application's responsibility to initiate text-to-speech for the response
+    // if it is desired.
+    // The SDK provides the -speakResponse method on HoundVoiceSearchQuery, or the
+    // the application may use its own TTS support.
+    [query speakResponse];
+}
+
+- (void)houndVoiceSearchQuery:(HoundVoiceSearchQuery *)query didFailWithError:(NSError *)error
+{
+    if (query != self.query) {
+        return;
+    }
+    
+    self.updateText = [NSString stringWithFormat:@"%@ %ld %@", error.domain, (long)error.code, error.localizedDescription];
+}
+
+- (void)houndVoiceSearchQueryDidCancel:(HoundVoiceSearchQuery *)query
+{
+    if (query != self.query) {
+        return;
+    }
+    
+    self.updateText = @"Canceled";
+}
+
+#pragma mark - Client Integration Example
+
+- (void)tryUpdateQueryResponse:(HoundVoiceSearchQuery *)query
+{
+    // Some HoundServer responses need information from the client before they are "complete"
+    // For more general information, start here: https://www.houndify.com/docs#dynamic-responses
+    
+    // In this example, let's look at ClientClearScreenCommand. Make sure the "Client Control"
+    // domain is enabled in your Houndify Dashboard while you try this example, and say
+    // "Clear the screen" to try it.
+    
+    // First, let's make sure we've got a ClientClearScreenCommand to work with.
+    HoundDataCommandResult *commandResult = query.response.allResults.firstObject;
+    
+    // See HoundDataCommandResult-Extras.m for the implementation of isClientClearScreenCommand
+    if (!commandResult.isClientClearScreenCommand) {
+        return;
+    }
+    
+    // ClientClearScreenCommand arrives from the server with a spoken response of
+    // "This client does not support clearing the screen." by default.
+    // This is because houndify does not know whether your application can clear
+    // the screen when the command is received.
+    
+    // Let us suppose for the sake of this example that we'll only consider it a success
+    // if the screen has contents to clear. (In this view controller, that will always be
+    // true. Try clearing the screen twice in row in the Text Search example to see the
+    // negative case.)
+    
+    if (self.textView.text.length > 0) {
+        
+        // CommandResult comes with a DynamicResponse in the clientActionSucceededResult
+        // field which contains updates for the success case.
+        // Use Hound.handleDynamicResponse to copy values from clientActionSucceeded
+        // to the command result, and to update the conversation state.
+        [Hound handleDynamicResponse:commandResult.clientActionSucceededResult
+              andUpdateCommandResult:commandResult];
+        
+        // Now the spoken response is "Screen is now cleared."
+    } else {
+        [Hound handleDynamicResponse:commandResult.clientActionFailedResult
+              andUpdateCommandResult:commandResult];
+        
+        // Now the spoken response is, "I couldn't clear the screen."
+        
+        // Just for fun, let's add our own explanation.
+        commandResult.spokenResponse = [commandResult.spokenResponse stringByAppendingString:@" There was nothing to clear."];
     }
 }
 
 #pragma mark - Notifications
-
-- (void)handleHoundVoiceSearchStateChangeNotification:(NSNotification *)notification
-{
-    [self houndVoiceSearchStateDidChange];
-}
 
 - (void)hotPhrase
 {
@@ -248,6 +362,11 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
     // When the hot phrase is detected, it is the responsibility of the application to
     // begin a voice search in the style of its choosing.
     [self startSearch];
+}
+
+- (void)applicationWillResignActive:(NSNotification*)notification
+{
+    [self.query cancel];
 }
 
 #pragma mark - IBActions
@@ -263,32 +382,34 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
 
 - (IBAction)searchButtonTapped:(id)sender
 {
-    // Take action based on current voice search state
+    // Begin a voice search if this is the first one.
+    if (!self.query) {
+        [self blankTextView];
+        [self startSearch];
+        return;
+    }
     
-    switch (HoundVoiceSearch.instance.state)
+    // The button performs different actions, depending on the state of the current query
+    
+    switch (self.query.state)
     {
-        case HoundVoiceSearchStateNone:
-        case HoundVoiceSearchStateReady:
-            
+        case HoundVoiceSearchQueryStateFinished:
             [self blankTextView];
             [self startSearch];
             break;
-        
-        case HoundVoiceSearchStateRecording:
-        
-            [HoundVoiceSearch.instance stopSearch];
+        case HoundVoiceSearchQueryStateRecording:
+            [self.query finishRecording];
             [self resetTextView];
             break;
-        
-        case HoundVoiceSearchStateSearching:
-        
-            [HoundVoiceSearch.instance cancelSearch];
+        case HoundVoiceSearchQueryStateSearching:
+            [self.query cancel];
             [self resetTextView];
             break;
-        
-        case HoundVoiceSearchStateSpeaking:
-        
-            [HoundVoiceSearch.instance stopSpeaking];
+        case HoundVoiceSearchQueryStateSpeaking:
+            [self.query stopSpeaking];
+            break;
+            
+        default:
             break;
     }
 }
@@ -301,7 +422,7 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
     
     if (self.setupState != RawVoiceSearchViewControllerSetupStateSetUp) {
         [text appendString:@"\n\nIf your app will be responsible for audio and will pass raw audio data to Houndify, you must first call -setupRawModeWithInputSampleRate:completionHandler:\n\nTap \"Set Up\""];
-    } else if ([HoundVoiceSearch instance].state == HoundVoiceSearchStateReady) {
+    } else if ([HoundVoiceSearch instance].isListening) {
         [text appendString:@"\n\nTap \"Search\" to begin a search with -startSearchWithRequestInfo:..."];
     } else {
         return nil;
@@ -342,13 +463,21 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
 
 - (void)refreshTextView
 {
+    self.textView.font = self.originalTextViewFont;
+    self.textView.textColor = self.originalTextViewColor;
+
     if (self.responseText.length > 0) {
         self.textView.attributedText = self.responseText;
-    } else if (self.updateText.length > 0) {
+    } else if (self.updateText) {
         self.textView.text = self.updateText;
     } else {
         self.textView.text = self.explanatoryText;
     }
+}
+
+- (void)updateStatus:(NSString *)status
+{
+    self.statusLabel.text = status;
 }
 
 @end
