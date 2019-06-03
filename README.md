@@ -29,7 +29,8 @@ pod `HoundifySDK`
 
 Install the SDK via Carthage by adding the following line to your `Cartfile`:
 ```ruby
-github "soundhound/houndify-sdk-ios" ~> 1.2.3
+github "soundhound/houndify-sdk-ios"
+github "soundhound/houndify-sdk-ios-phrasespotter"
 ```
 
 The SDK is also available for download at houndify.com
