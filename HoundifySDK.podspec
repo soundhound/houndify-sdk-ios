@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "HoundifySDK"
-  s.version      = "1.9"
+  s.version      = "1.9.1"
   s.summary      = "The official Houndify SDK for iOS to access the Houndify API."
 
   s.description  = <<-DESC
@@ -18,8 +18,8 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, "10.2"
   s.dependency 'HoundifyPhraseSpotter', '~> 1.9'
-  s.source = {:git => "https://github.com/soundhound/houndify-sdk-ios.git", :tag => 'v1.9' }
-  s.vendored_frameworks = 'HoundifySDK.framework'
+  s.source = {:git => "https://github.com/soundhound/houndify-sdk-ios.git", :tag => 'v1.9.1' }
+  s.vendored_frameworks = 'HoundifySDK.xcframework'
   s.requires_arc = true
 
 end

@@ -1,6 +1,0 @@
-framework module HoundifySDK {
-  umbrella header "HoundifySDK.h"
-
-  export *
-  module * { export * }
-}
