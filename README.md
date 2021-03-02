@@ -41,7 +41,7 @@ For Cocoapods user, simply do:
 pod try HoundifySDK
 ```
 
-You can also download sample projects from our website for [Swift version](https://static.houndify.com/sdks/ios/v1.2.3/HoundSDK-Sample-Swift-1.2.3_20.zip) or [Objective-C version](https://static.houndify.com/sdks/ios/v1.2.3/HoundSDK-Sample-ObjC-1.2.3_20.zip).
+You can also download sample projects from our website for [Swift version](https://static.houndify.com/sdks/ios/v1.9.1/HoundSDK-Sample-Swift-1.9.1.zip) or [Objective-C version](https://static.houndify.com/sdks/ios/v1.9.1/HoundSDK-Sample-ObjC-1.9.1.zip).
 
 ## Documentation
 Visit https://docs.houndify.com/sdks/docs/ios for reference documentation.
