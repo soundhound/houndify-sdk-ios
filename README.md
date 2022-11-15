@@ -4,7 +4,7 @@ This library allows you to houndify your iOS app.
 
 ## What is Houndify
 
-[Houndify](https://www.houndify.com) is a platform that allows anyone to add smart, voice enabled, conversational interfaces to anything with an Internet connection. Once you integrate with Houndify, your product will instantly understand a wide variety of questions and commands.
+[Houndify](https://www.houndify.com) is a Developer Platform that allows anyone to add smart, voice enabled, conversational interfaces to anything with an Internet connection. Once you integrate with Houndify, your product will instantly understand a wide variety of questions and commands.
 
 What makes Houndify unique is that rather than being one link in a chain of technologies, Houndify is a one-stop destination for all of the technologies needed to voice enable anything.
 
@@ -45,6 +45,9 @@ You can also download sample projects from our website for [Swift version](https
 
 ## Documentation
 Visit https://docs.houndify.com/sdks/docs/ios for reference documentation.
+
+## Important Note
+The SDK also requires the [HoundifyPhraseSpotter framework](https://static.houndify.com/sdks/ios/v1.9.1/HoundSDK-1.9.1.zip) to operate, which can be downloaded from the Houndify website.
 
 ## License
 See the LICENSE file.
