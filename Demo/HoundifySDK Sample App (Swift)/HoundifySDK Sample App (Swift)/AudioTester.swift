@@ -218,9 +218,9 @@ class AudioTester {
         permission = self._session.recordPermission
 		
 		switch (permission) {
-        case AVAudioSessionRecordPermission.denied:
+        case AVAudioSession.RecordPermission.denied:
     		completionHandler(false)
-    	case AVAudioSessionRecordPermission.granted:
+        case AVAudioSession.RecordPermission.granted:
     		completionHandler(true)
         default:
             self._session.requestRecordPermission(completionHandler)
