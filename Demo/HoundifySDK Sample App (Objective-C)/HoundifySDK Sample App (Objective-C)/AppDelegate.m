@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "SceneDelegate.h"
 @import HoundifySDK;
 
 #pragma mark - AppDelegate
@@ -26,6 +27,14 @@
 //    [Hound setClientKey:<CLIENT-KEY];
     
     return YES;
+}
+
+- (UISceneConfiguration *)application:(UIApplication *)application configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession options:(UISceneConnectionOptions *)options
+{
+    UISceneConfiguration *configuration = [[UISceneConfiguration alloc] initWithName:@"Default Configuration" sessionRole:connectingSceneSession.role];
+    configuration.delegateClass = [SceneDelegate class];
+    configuration.storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    return configuration;
 }
 
 @end

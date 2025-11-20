@@ -150,6 +150,13 @@
     [self updateStatus:status];
 }
 
+- (void)unlockVoiceTabsIfNeeded
+{
+    if ([self.tabBarController respondsToSelector:@selector(enableAllVoiceSearchControllers)]) {
+        [(id)self.tabBarController enableAllVoiceSearchControllers];
+    }
+}
+
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
@@ -181,6 +188,8 @@
     [[HoundVoiceSearch instance] stopListeningWithCompletionHandler:^(NSError * _Nullable error) {
         self.listeningButton.enabled = ![HoundVoiceSearch instance].isListening;
         
+        [self unlockVoiceTabsIfNeeded];
+        
         if (error) {
             self.updateText = error.localizedDescription;
         }
@@ -190,7 +199,12 @@
 
 - (void)startSearch
 {
-    if (self.query.isActive || ![HoundVoiceSearch instance].isListening) {
+    if (self.query.isActive) {
+        return;
+    }
+    
+    if (![HoundVoiceSearch instance].isListening) {
+        [self unlockVoiceTabsIfNeeded];
         return;
     }
     // To perform a voice search, create an instance of HoundVoiceSearchQuery
@@ -204,7 +218,7 @@
     // An example of how to use RequestInfo: set the location to SoundHound HQ.
     // a real application, of course, one would use location services to determine
     // the device's location.
-    
+
     self.query.requestInfoBuilder.latitude = 37.4089054;
     self.query.requestInfoBuilder.longitude = -121.9849621;
     self.query.requestInfoBuilder.positionTime = lround([[NSDate date] timeIntervalSince1970]);
@@ -222,6 +236,7 @@
     
     if (newState == HoundVoiceSearchQueryStateFinished) {
         [self refreshTextView];
+        [self unlockVoiceTabsIfNeeded];
     }
 }
 
@@ -276,6 +291,7 @@
     }
 
     self.updateText = [NSString stringWithFormat:@"%@ %ld %@", error.domain, (long)error.code, error.localizedDescription];
+    [self unlockVoiceTabsIfNeeded];
 }
 
 - (void)houndVoiceSearchQueryDidCancel:(HoundVoiceSearchQuery *)query
@@ -285,6 +301,7 @@
     }
     
     self.updateText = @"Canceled";
+    [self unlockVoiceTabsIfNeeded];
 }
 
 #pragma mark - Client Integration Example

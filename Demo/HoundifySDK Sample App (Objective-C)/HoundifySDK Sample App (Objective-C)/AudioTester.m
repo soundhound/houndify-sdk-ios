@@ -88,7 +88,7 @@ NSString* AudioTesterErrorDomain = @"AudioTesterErrorDomain";
                         if (!error)
                         {
                             [self.session setCategory:AVAudioSessionCategoryPlayAndRecord
-                                withOptions:AVAudioSessionCategoryOptionAllowBluetooth
+                                withOptions:AVAudioSessionCategoryOptionAllowBluetoothHFP
                                 error:&error];
                         }
                         

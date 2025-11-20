@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,6 +21,8 @@
 		8551EF091F16CAAB005BD268 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8551EF071F16CAAB005BD268 /* LaunchScreen.xib */; };
 		8551EF131F16D7F5005BD268 /* UITabBarController+HoundifySample.m in Sources */ = {isa = PBXBuildFile; fileRef = 8551EF121F16D7F5005BD268 /* UITabBarController+HoundifySample.m */; };
 		8596E493227250930077D30C /* HoundDataCommandResult+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 8596E492227250930077D30C /* HoundDataCommandResult+Extras.m */; };
+		C7FBE7122ECFBC65006E6ABB /* HoundifySDK in Frameworks */ = {isa = PBXBuildFile; productRef = C7FBE7112ECFBC65006E6ABB /* HoundifySDK */; settings = {ATTRIBUTES = (Required, ); }; };
+		C7FBE7162ECFC2F7006E6AC0 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FBE7142ECFBC65006E6AC0 /* SceneDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -63,6 +65,8 @@
 		8551EF121F16D7F5005BD268 /* UITabBarController+HoundifySample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+HoundifySample.m"; sourceTree = "<group>"; };
 		8596E491227250930077D30C /* HoundDataCommandResult+Extras.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HoundDataCommandResult+Extras.h"; sourceTree = "<group>"; };
 		8596E492227250930077D30C /* HoundDataCommandResult+Extras.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HoundDataCommandResult+Extras.m"; sourceTree = "<group>"; };
+		C7FBE7142ECFBC65006E6AC0 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		C7FBE7152ECFBC65006E6AC0 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7FBE7122ECFBC65006E6ABB /* HoundifySDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,6 +103,8 @@
 			children = (
 				8551EED71F16C4E6005BD268 /* AppDelegate.h */,
 				8551EED81F16C4E6005BD268 /* AppDelegate.m */,
+				C7FBE7152ECFBC65006E6AC0 /* SceneDelegate.h */,
+				C7FBE7142ECFBC65006E6AC0 /* SceneDelegate.m */,
 				8551EEE01F16C4E6005BD268 /* Main.storyboard */,
 				8551EEE81F16C4E6005BD268 /* Info.plist */,
 				8551EEEE1F16C88B005BD268 /* ViewControllers */,
@@ -181,6 +188,9 @@
 			dependencies = (
 			);
 			name = "HoundifySDK Sample App (Objective-C)";
+			packageProductDependencies = (
+				C7FBE7112ECFBC65006E6ABB /* HoundifySDK */,
+			);
 			productName = "HoundifySDK Sample App (Objective-C)";
 			productReference = 8551EED11F16C4E6005BD268 /* HoundifySDK Sample App (Objective-C).app */;
 			productType = "com.apple.product-type.application";
@@ -191,7 +201,8 @@
 		8551EEC91F16C4E6005BD268 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1020;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 2610;
 				ORGANIZATIONNAME = SoundHound;
 				TargetAttributes = {
 					8551EED01F16C4E6005BD268 = {
@@ -209,6 +220,9 @@
 				Base,
 			);
 			mainGroup = 8551EEC81F16C4E6005BD268;
+			packageReferences = (
+				C7FBE7102ECFBC65006E6ABB /* XCLocalSwiftPackageReference "../../../houndify-sdk-ios" */,
+			);
 			productRefGroup = 8551EED21F16C4E6005BD268 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -238,6 +252,7 @@
 			files = (
 				8596E493227250930077D30C /* HoundDataCommandResult+Extras.m in Sources */,
 				8551EED91F16C4E6005BD268 /* AppDelegate.m in Sources */,
+				C7FBE7162ECFC2F7006E6AC0 /* SceneDelegate.m in Sources */,
 				8551EF031F16C91C005BD268 /* AudioTester.m in Sources */,
 				8551EED61F16C4E6005BD268 /* main.m in Sources */,
 				8551EF131F16D7F5005BD268 /* UITabBarController+HoundifySample.m in Sources */,
@@ -268,6 +283,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -289,6 +305,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -297,8 +314,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 9ZMNH3FM2U;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -313,10 +332,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 			};
 			name = Debug;
 		};
@@ -324,6 +344,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -345,6 +366,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -353,8 +375,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 9ZMNH3FM2U;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -363,9 +387,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -374,13 +399,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "HoundifySDK Sample App (Objective-C)/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.soundhound.HoundifySDK-Sample-App--Objective-C-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -390,13 +419,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "HoundifySDK Sample App (Objective-C)/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.soundhound.HoundifySDK-Sample-App--Objective-C-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -424,6 +457,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		C7FBE7102ECFBC65006E6ABB /* XCLocalSwiftPackageReference "../../../houndify-sdk-ios" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../../houndify-sdk-ios";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C7FBE7112ECFBC65006E6ABB /* HoundifySDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HoundifySDK;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8551EEC91F16C4E6005BD268 /* Project object */;
 }

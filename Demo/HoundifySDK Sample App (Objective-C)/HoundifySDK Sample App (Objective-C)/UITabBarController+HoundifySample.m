@@ -17,9 +17,24 @@
 {
     NSArray *voiceSearchClasses = @[[HoundifyViewController class], [VoiceSearchViewController class], [RawVoiceSearchViewController class]];
 
+    // First ensure everything is enabled.
+    [self enableAllVoiceSearchControllers];
+
+    // Disable other voice tabs during an active flow to avoid overlapping sessions.
     for (UIViewController *viewController in self.viewControllers) {
         if (viewController != exceptController && [voiceSearchClasses containsObject:[viewController class]]) {
             viewController.tabBarItem.enabled = NO;
+        }
+    }
+}
+
+- (void)enableAllVoiceSearchControllers
+{
+    NSArray *voiceSearchClasses = @[[HoundifyViewController class], [VoiceSearchViewController class], [RawVoiceSearchViewController class]];
+
+    for (UIViewController *viewController in self.viewControllers) {
+        if ([voiceSearchClasses containsObject:[viewController class]]) {
+            viewController.tabBarItem.enabled = YES;
         }
     }
 }
