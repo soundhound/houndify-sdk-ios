@@ -13,7 +13,7 @@ extension UITabBarController {
         let voiceSearchControllerTypes = [HoundifyViewController.self, VoiceSearchViewController.self, RawVoiceSearchViewController.self]
         
         viewControllers?.forEach { viewController in
-            if viewController != exceptController && voiceSearchControllerTypes.contains { type(of:viewController).self == $0 } {
+            if viewController != exceptController && voiceSearchControllerTypes.contains(where: { type(of:viewController).self == $0 }) {
                 viewController.tabBarItem.isEnabled = false
             }
         }
