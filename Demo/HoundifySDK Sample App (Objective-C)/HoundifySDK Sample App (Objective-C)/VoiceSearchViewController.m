@@ -150,13 +150,6 @@
     [self updateStatus:status];
 }
 
-- (void)unlockVoiceTabsIfNeeded
-{
-    if ([self.tabBarController respondsToSelector:@selector(enableAllVoiceSearchControllers)]) {
-        [(id)self.tabBarController enableAllVoiceSearchControllers];
-    }
-}
-
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
@@ -187,9 +180,6 @@
 
     [[HoundVoiceSearch instance] stopListeningWithCompletionHandler:^(NSError * _Nullable error) {
         self.listeningButton.enabled = ![HoundVoiceSearch instance].isListening;
-        
-        [self unlockVoiceTabsIfNeeded];
-        
         if (error) {
             self.updateText = error.localizedDescription;
         }
@@ -199,12 +189,7 @@
 
 - (void)startSearch
 {
-    if (self.query.isActive) {
-        return;
-    }
-    
-    if (![HoundVoiceSearch instance].isListening) {
-        [self unlockVoiceTabsIfNeeded];
+    if (self.query.isActive || ![HoundVoiceSearch instance].isListening) {
         return;
     }
     // To perform a voice search, create an instance of HoundVoiceSearchQuery
@@ -236,7 +221,6 @@
     
     if (newState == HoundVoiceSearchQueryStateFinished) {
         [self refreshTextView];
-        [self unlockVoiceTabsIfNeeded];
     }
 }
 
@@ -291,7 +275,6 @@
     }
 
     self.updateText = [NSString stringWithFormat:@"%@ %ld %@", error.domain, (long)error.code, error.localizedDescription];
-    [self unlockVoiceTabsIfNeeded];
 }
 
 - (void)houndVoiceSearchQueryDidCancel:(HoundVoiceSearchQuery *)query
@@ -301,7 +284,6 @@
     }
     
     self.updateText = @"Canceled";
-    [self unlockVoiceTabsIfNeeded];
 }
 
 #pragma mark - Client Integration Example

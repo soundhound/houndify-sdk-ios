@@ -65,13 +65,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)unlockVoiceTabsIfNeeded
-{
-    if ([self.tabBarController respondsToSelector:@selector(enableAllVoiceSearchControllers)]) {
-        [(id)self.tabBarController enableAllVoiceSearchControllers];
-    }
-}
-
 #pragma mark - HoundifySDK
 
 - (void)startListeningForHotPhrase
@@ -84,7 +77,6 @@
         
         if (error) {
             self.updateText = error.localizedDescription;
-            [self unlockVoiceTabsIfNeeded];
         } else {
             self.listenButton.enabled = NO;
             [HoundVoiceSearch instance].enableHotPhraseDetection = YES;
@@ -166,8 +158,6 @@
          // The SDK provides the -speakResponse method on HoundVoiceSearchQuery, or the
          // the application may use its own TTS support.
          [query speakResponse];
-
-         [self unlockVoiceTabsIfNeeded];
      }];
     
 }
@@ -179,8 +169,6 @@
 {
     // Check whether listening has been disabled.
     if (![HoundVoiceSearch instance].isListening) {
-        [self unlockVoiceTabsIfNeeded];
-
         // Don't update UI when audio is disabled for backgrounding.
         if (UIApplication.sharedApplication.applicationState == UIApplicationStateActive) {
             self.statusLabel.text = @"";
@@ -197,7 +185,6 @@
     if (!query) {
         self.statusLabel.text = @"Listening";
         [self refreshTextView];
-        [self unlockVoiceTabsIfNeeded];
         return;
     }
     
@@ -222,7 +209,6 @@
         case HoundVoiceSearchQueryStateFinished:
             statusString = @"Listening";
             [self refreshTextView];
-            [self unlockVoiceTabsIfNeeded];
             break;
     }
     

@@ -138,13 +138,6 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
     [self updateStatus:status];
 }
 
-- (void)unlockVoiceTabsIfNeeded
-{
-    if ([self.tabBarController respondsToSelector:@selector(enableAllVoiceSearchControllers)]) {
-        [(id)self.tabBarController enableAllVoiceSearchControllers];
-    }
-}
-
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
@@ -213,12 +206,7 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
 
 - (void)startSearch
 {
-    if (self.query.isActive) {
-        return;
-    }
-    
-    if (self.setupState != RawVoiceSearchViewControllerSetupStateSetUp) {
-        [self unlockVoiceTabsIfNeeded];
+    if (self.query.isActive || self.setupState != RawVoiceSearchViewControllerSetupStateSetUp) {
         return;
     }
     // To perform a voice search, create an instance of HoundVoiceSearchQuery
@@ -250,7 +238,6 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
     
     if (newState == HoundVoiceSearchQueryStateFinished) {
         [self refreshTextView];
-        [self unlockVoiceTabsIfNeeded];
     }
 }
 
@@ -305,7 +292,6 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
     }
 
     self.updateText = [NSString stringWithFormat:@"%@ %ld %@", error.domain, (long)error.code, error.localizedDescription];
-    [self unlockVoiceTabsIfNeeded];
 }
 
 - (void)houndVoiceSearchQueryDidCancel:(HoundVoiceSearchQuery *)query
@@ -315,7 +301,6 @@ typedef NS_ENUM(NSUInteger, RawVoiceSearchViewControllerSetupState) {
     }
     
     self.updateText = @"Canceled";
-    [self unlockVoiceTabsIfNeeded];
 }
 
 #pragma mark - Client Integration Example

@@ -11,6 +11,5 @@
 @interface UITabBarController (HoundifySample)
 
 - (void)disableAllVoiceSearchControllersExcept:(UIViewController *)exceptController;
-- (void)enableAllVoiceSearchControllers;
 
 @end
