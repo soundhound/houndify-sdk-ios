@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,7 +20,7 @@
 		85CCA4AA1F05C9ED0035F5D5 /* HoundifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CCA4A91F05C9ED0035F5D5 /* HoundifyViewController.swift */; };
 		85CCA4B01F05DA000035F5D5 /* AudioTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85CCA4AD1F05DA000035F5D5 /* AudioTester.swift */; };
 		85CCA4B11F05DA000035F5D5 /* JSONAttributedFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 85CCA4AF1F05DA000035F5D5 /* JSONAttributedFormatter.m */; };
-		C7E0A4FF2ED56A7F0066CBCA /* HoundifySDK in Frameworks */ = {isa = PBXBuildFile; productRef = C7FBE7162ED11708006E6ABB /* HoundifySDK */; };
+		C7E0A5052ED591240066CBCA /* HoundifySDK in Frameworks */ = {isa = PBXBuildFile; productRef = C7E0A5042ED591240066CBCA /* HoundifySDK */; };
 		C7FBE7192ECFCE8E006E6AC0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FBE7182ECFCE8E006E6AC0 /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -68,7 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7E0A4FF2ED56A7F0066CBCA /* HoundifySDK in Frameworks */,
+				C7E0A5052ED591240066CBCA /* HoundifySDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,6 +171,7 @@
 			name = "HoundifySDK Sample App (Swift)";
 			packageProductDependencies = (
 				C7FBE7162ED11708006E6ABB /* HoundifySDK */,
+				C7E0A5042ED591240066CBCA /* HoundifySDK */,
 			);
 			productName = "HoundifySDK Sample App (Swift)";
 			productReference = 85CCA4701F05BD4E0035F5D5 /* HoundifySDK Sample App (Swift).app */;
@@ -204,7 +205,7 @@
 			);
 			mainGroup = 85CCA4671F05BD4E0035F5D5;
 			packageReferences = (
-				C7E0A4FC2ED569A50066CBCA /* XCLocalSwiftPackageReference "../../../houndify-sdk-ios" */,
+				C7E0A5032ED591240066CBCA /* XCRemoteSwiftPackageReference "houndify-sdk-ios" */,
 			);
 			productRefGroup = 85CCA4711F05BD4E0035F5D5 /* Products */;
 			projectDirPath = "";
@@ -457,14 +458,23 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		C7E0A4FC2ED569A50066CBCA /* XCLocalSwiftPackageReference "../../../houndify-sdk-ios" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = "../../../houndify-sdk-ios";
+/* Begin XCRemoteSwiftPackageReference section */
+		C7E0A5032ED591240066CBCA /* XCRemoteSwiftPackageReference "houndify-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/soundhound/houndify-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.9.2;
+			};
 		};
-/* End XCLocalSwiftPackageReference section */
+/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C7E0A5042ED591240066CBCA /* HoundifySDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C7E0A5032ED591240066CBCA /* XCRemoteSwiftPackageReference "houndify-sdk-ios" */;
+			productName = HoundifySDK;
+		};
 		C7FBE7162ED11708006E6ABB /* HoundifySDK */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = HoundifySDK;

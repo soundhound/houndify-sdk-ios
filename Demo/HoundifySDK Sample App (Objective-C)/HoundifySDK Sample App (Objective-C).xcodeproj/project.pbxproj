@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,8 +21,7 @@
 		8551EF091F16CAAB005BD268 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8551EF071F16CAAB005BD268 /* LaunchScreen.xib */; };
 		8551EF131F16D7F5005BD268 /* UITabBarController+HoundifySample.m in Sources */ = {isa = PBXBuildFile; fileRef = 8551EF121F16D7F5005BD268 /* UITabBarController+HoundifySample.m */; };
 		8596E493227250930077D30C /* HoundDataCommandResult+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 8596E492227250930077D30C /* HoundDataCommandResult+Extras.m */; };
-		C7E0A4FB2ED5523C0066CBCA /* HoundifySDK in Frameworks */ = {isa = PBXBuildFile; productRef = C7E0A4FA2ED5523C0066CBCA /* HoundifySDK */; };
-		C7FBE7122ECFBC65006E6ABB /* HoundifySDK in Frameworks */ = {isa = PBXBuildFile; productRef = C7FBE7112ECFBC65006E6ABB /* HoundifySDK */; settings = {ATTRIBUTES = (Required, ); }; };
+		C7E0A5082ED591A30066CBCA /* HoundifySDK in Frameworks */ = {isa = PBXBuildFile; productRef = C7E0A5072ED591A30066CBCA /* HoundifySDK */; };
 		C7FBE7162ECFC2F7006E6AC0 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C7FBE7142ECFBC65006E6AC0 /* SceneDelegate.m */; };
 /* End PBXBuildFile section */
 
@@ -75,8 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7FBE7122ECFBC65006E6ABB /* HoundifySDK in Frameworks */,
-				C7E0A4FB2ED5523C0066CBCA /* HoundifySDK in Frameworks */,
+				C7E0A5082ED591A30066CBCA /* HoundifySDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,6 +191,7 @@
 			packageProductDependencies = (
 				C7FBE7112ECFBC65006E6ABB /* HoundifySDK */,
 				C7E0A4FA2ED5523C0066CBCA /* HoundifySDK */,
+				C7E0A5072ED591A30066CBCA /* HoundifySDK */,
 			);
 			productName = "HoundifySDK Sample App (Objective-C)";
 			productReference = 8551EED11F16C4E6005BD268 /* HoundifySDK Sample App (Objective-C).app */;
@@ -224,7 +223,7 @@
 			);
 			mainGroup = 8551EEC81F16C4E6005BD268;
 			packageReferences = (
-				C7E0A4F92ED5523C0066CBCA /* XCLocalSwiftPackageReference "../../../houndify-sdk-ios" */,
+				C7E0A5062ED591A30066CBCA /* XCRemoteSwiftPackageReference "houndify-sdk-ios" */,
 			);
 			productRefGroup = 8551EED21F16C4E6005BD268 /* Products */;
 			projectDirPath = "";
@@ -402,7 +401,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9ZMNH3FM2U;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -422,7 +421,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 9ZMNH3FM2U;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -461,16 +460,25 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		C7E0A4F92ED5523C0066CBCA /* XCLocalSwiftPackageReference "../../../houndify-sdk-ios" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = "../../../houndify-sdk-ios";
+/* Begin XCRemoteSwiftPackageReference section */
+		C7E0A5062ED591A30066CBCA /* XCRemoteSwiftPackageReference "houndify-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/soundhound/houndify-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.9.2;
+			};
 		};
-/* End XCLocalSwiftPackageReference section */
+/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		C7E0A4FA2ED5523C0066CBCA /* HoundifySDK */ = {
 			isa = XCSwiftPackageProductDependency;
+			productName = HoundifySDK;
+		};
+		C7E0A5072ED591A30066CBCA /* HoundifySDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C7E0A5062ED591A30066CBCA /* XCRemoteSwiftPackageReference "houndify-sdk-ios" */;
 			productName = HoundifySDK;
 		};
 		C7FBE7112ECFBC65006E6ABB /* HoundifySDK */ = {
