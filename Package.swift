@@ -10,19 +10,29 @@ let package = Package(
         .library(
             name: "HoundifySDK",
             targets: [
-                "HoundifySDK",
-                "HoundifyPhraseSpotter"
+                "HoundifySDKTarget"
             ]
         )
     ],
+    dependencies: [
+        .package(
+            url: "https://github.com/soundhound/houndify-sdk-ios-phrasespotter",
+            from: "1.9.2"
+        )
+    ],
     targets: [
+        .target(
+            name: "HoundifySDKTarget",
+            dependencies: [
+                "HoundifySDK",
+                .product(name: "HoundifyPhraseSpotter",
+                         package: "houndify-sdk-ios-phrasespotter")
+            ],
+            path: "./Sources/HoundifySDKTarget"
+        ),
         .binaryTarget(
             name: "HoundifySDK",
             path: "HoundifySDK.xcframework"
-        ),
-        .binaryTarget(
-            name: "HoundifyPhraseSpotter",
-            path: "HoundifyPhraseSpotter.xcframework"
         )
     ]
 )
