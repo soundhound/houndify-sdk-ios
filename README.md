@@ -41,13 +41,13 @@ targets: [
 The SDK is also available for download at houndify.com
 
 ## Try it out
-You can also download sample projects from our website for [Swift version](https://static.houndify.com/sdks/ios/v1.9.1/HoundSDK-Sample-Swift-1.9.1.zip) or [Objective-C version](https://static.houndify.com/sdks/ios/v1.9.1/HoundSDK-Sample-ObjC-1.9.1.zip).
+You can also download sample projects from our website for [Swift version](https://static.houndify.com/sdks/ios/v1.9.2/HoundSDK-Sample-Swift-1.9.2.zip) or [Objective-C version](https://static.houndify.com/sdks/ios/v1.9.2/HoundSDK-Sample-ObjC-1.9.2.zip).
 
 ## Documentation
 Visit https://docs.houndify.com/sdks/docs/ios for reference documentation.
 
 ## Important Note
-The SDK also requires the HoundifyPhraseSpotter framework. When using Swift Package Manager, it is pulled in automatically via the package dependency. If you are downloading manually, grab the [HoundifyPhraseSpotter framework](https://static.houndify.com/sdks/ios/v1.9.1/HoundSDK-1.9.1.zip) from the Houndify website.
+The SDK also requires the HoundifyPhraseSpotter framework. When using Swift Package Manager, it is pulled in automatically via the package dependency. If you are downloading manually, grab the [HoundifyPhraseSpotter framework](https://static.houndify.com/sdks/ios/v1.9.2/HoundSDK-1.9.2.zip) from the Houndify website.
 
 ## License
 See the LICENSE file.
